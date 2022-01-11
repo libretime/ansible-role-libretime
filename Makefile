@@ -15,6 +15,7 @@ $(VENV):
 install: $(VENV)
 	source $(VENV)/bin/activate
 	pip install --upgrade -r requirements.txt
+	ansible-galaxy install -r requirements.yml
 
 clean:
 	rm -Rf $(VENV)

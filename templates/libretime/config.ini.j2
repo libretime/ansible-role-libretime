@@ -1,0 +1,32 @@
+[general]
+api_key = {{ libretime_legacy_api_key }}
+web_server_user = {{ libretime_user }}
+
+base_url = {{ libretime_root_url | urlsplit('hostname') }}
+base_port = {{ libretime_listen_port }}
+base_dir = "/"
+force_ssl =
+
+airtime_dir =
+station_id =
+
+auth = local
+
+cache_ahead_hours = 1
+
+[database]
+host = {{ libretime_database_host }}
+{# port = {{ libretime_database_post }} #}
+dbname = {{ libretime_database_name }}
+dbuser = {{ libretime_database_user }}
+dbpass = {{ libretime_database_password }}
+
+[rabbitmq]
+host = {{ libretime_rabbitmq_host }}
+port = {{ libretime_rabbitmq_port }}
+vhost = {{ libretime_rabbitmq_vhost }}
+user = {{ libretime_rabbitmq_user }}
+password = {{ libretime_rabbitmq_password }}
+
+[current_backend]
+storage_backend = file

@@ -1,0 +1,17 @@
+---
+# packages_path: required
+# packages_args:
+
+- name: generate dependencies list from {{ packages_path }}
+  command:
+    cmd: >
+      {{ libretime_checkout_dest }}/tools/packages.py --format=line
+      {{ ansible_distribution_release }}
+      {{ packages_path }} {{ packages_args | default('') }}
+  register: dependencies
+  changed_when: false
+
+- name: install dependencies from {{ packages_path }}
+  apt:
+    state: present
+    name: "{{ dependencies.stdout.split(' ') }}"

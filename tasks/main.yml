@@ -1,2 +1,101 @@
 ---
-# tasks file for ansible-role-libretime
+- name: include distribution specific vars
+  include_vars: "{{ ansible_distribution_release }}.yml"
+
+- name: checkout repository
+  git:
+    repo: "{{ libretime_checkout_url }}"
+    dest: "{{ libretime_checkout_dest }}"
+    version: "{{ libretime_checkout_version }}"
+
+- name: add libretime ppa
+  apt_repository:
+    repo: ppa:libretime/libretime
+  when: ansible_distribution == "Ubuntu"
+
+- import_tasks: apache.yml
+
+- import_tasks: postgresql.yml
+  when: libretime_postgresql_install
+
+- import_tasks: rabbitmq.yml
+  when: libretime_rabbitmq_install
+
+- import_tasks: icecast.yml
+  when: libretime_icecast_install
+
+- import_tasks: liquidsoap.yml
+  when: libretime_liquidsoap_install
+
+- name: build VERSION file
+  command: make -C {{ libretime_checkout_dest }} VERSION
+  args:
+    creates: "{{ libretime_checkout_dest }}/VERSION"
+
+- name: create {{ libretime_user }} user
+  user:
+    name: "{{ libretime_user }}"
+    system: true
+    createhome: false
+    home: "{{ libretime_home }}"
+  when: libretime_user != __default_web_user
+
+- name: create directories
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - path: "{{ libretime_home }}"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
+    - path: "{{ libretime_log_dir }}"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
+      # TODO: Remov old paths
+    - path: "/var/log/airtime"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
+    - path: "{{ libretime_config_dir }}"
+      # TODO: Config dir should not be writable, but liquidsoap writes to this dir.
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
+
+- name: install python3
+  apt:
+    state: present
+    name: [python3, python3-pip]
+
+- import_tasks: shared.yml
+  when: >
+    libretime_api_install or
+    libretime_worker_install or
+    libretime_analyzer_install or
+    libretime_playout_install
+
+- import_tasks: api_client.yml
+  when: >
+    libretime_api_install or
+    libretime_worker_install or
+    libretime_analyzer_install or
+    libretime_playout_install
+
+- import_tasks: api.yml
+  when: libretime_api_install
+
+- import_tasks: worker.yml
+  when: libretime_worker_install
+
+- import_tasks: analyzer.yml
+  when: libretime_analyzer_install
+
+- import_tasks: playout.yml
+  when: libretime_playout_install
+
+- import_tasks: legacy.yml
+  when: libretime_legacy_install
+
+- import_tasks: setup.yml
+  when: libretime_setup

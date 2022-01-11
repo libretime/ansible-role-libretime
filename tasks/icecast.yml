@@ -1,0 +1,19 @@
+---
+- name: install icecast
+  apt:
+    state: present
+    name: [icecast2, python3-lxml]
+
+- name: set icecast passwords
+  community.general.xml:
+    path: /etc/icecast2/icecast.xml
+    xpath: "{{ item.xpath }}"
+    value: "{{ item.value }}"
+  with_items:
+    - xpath: /icecast/authentication/source-password
+      value: "{{ libretime_icecast_source_password }}"
+    - xpath: /icecast/authentication/relay-password
+      value: "{{ libretime_icecast_relay_password }}"
+    - xpath: /icecast/authentication/admin-password
+      value: "{{ libretime_icecast_admin_password }}"
+  notify: restart icecast

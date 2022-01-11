@@ -1,0 +1,17 @@
+---
+- name: install worker package
+  pip:
+    name: "file://{{ libretime_checkout_dest }}/worker"
+  notify: restart libretime-celery
+
+- name: create worker working directory
+  file:
+    path: "{{ libretime_home }}/worker"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
+    state: directory
+
+- import_tasks: _systemd.yml
+  vars:
+    service_name: libretime-celery
+  notify: restart libretime-celery

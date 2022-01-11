@@ -1,0 +1,21 @@
+---
+- name: install postgresql
+  apt:
+    state: present
+    name: [postgresql, postgresql-client, python3-psycopg2]
+
+- name: setup database
+  become: true
+  become_user: postgres
+  block:
+    - name: create postgresql database user
+      community.postgresql.postgresql_user:
+        name: "{{ libretime_database_user }}"
+        password: "{{ libretime_database_password }}"
+
+    - name: create postgresql database
+      community.postgresql.postgresql_db:
+        name: "{{ libretime_database_name }}"
+        encoding: UTF-8
+        template: template0
+        owner: "{{ libretime_database_user }}"

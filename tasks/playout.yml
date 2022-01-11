@@ -1,0 +1,37 @@
+---
+- import_tasks: _dependencies.yml
+  vars:
+    packages_path: "{{ libretime_checkout_dest }}/playout"
+
+- name: install playout package
+  pip:
+    name: "file://{{ libretime_checkout_dest }}/playout"
+  notify:
+    - restart libretime-playout
+    - restart libretime-liquidsoap
+
+- name: create playout working directory
+  file:
+    path: "{{ libretime_home }}/playout"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
+    state: directory
+    mode: 0755
+
+- name: deploy liquidsoap logrotate config
+  template:
+    src: logrotate/libretime-liquidsoap.conf.j2
+    dest: /etc/logrotate.d/libretime-liquidsoap
+    owner: root
+    group: root
+    mode: 0644
+
+- import_tasks: _systemd.yml
+  vars:
+    service_name: libretime-playout
+  notify: restart libretime-playout
+
+- import_tasks: _systemd.yml
+  vars:
+    service_name: libretime-liquidsoap
+  notify: restart libretime-liquidsoap
