@@ -1,0 +1,32 @@
+---
+- name: install nginx
+  ansible.builtin.apt:
+    state: present
+    name: [nginx]
+
+- name: disable default vhost
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: restart nginx
+
+- name: deploy nginx conf
+  ansible.builtin.template:
+    src: nginx/libretime.conf.j2
+    dest: /etc/nginx/sites-available/libretime.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: true
+  notify: restart nginx
+
+- name: enable nginx conf
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/libretime.conf
+    dest: /etc/nginx/sites-enabled/libretime.conf
+    state: link
+  notify: restart nginx
+
+- name: check nginx config
+  ansible.builtin.shell: /usr/sbin/nginx -t > /dev/null
+  changed_when: false

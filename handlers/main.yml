@@ -1,9 +1,14 @@
 ---
 # The order of the handlers matters
 
-- name: restart apache2
+- name: restart nginx
   ansible.builtin.systemd:
-    name: apache2
+    name: nginx
+    state: restarted
+
+- name: restart php-fpm
+  ansible.builtin.systemd:
+    name: "php{{ __php_default_version }}-fpm"
     state: restarted
 
 - name: restart icecast
