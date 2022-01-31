@@ -54,10 +54,6 @@
     - path: "{{ libretime_log_dir }}"
       owner: "{{ libretime_user }}"
       group: "{{ libretime_user }}"
-      # TODO: Remov old paths
-    - path: "/var/log/airtime"
-      owner: "{{ libretime_user }}"
-      group: "{{ libretime_user }}"
     - path: "{{ libretime_config_dir }}"
       # TODO: Config dir should not be writable, but liquidsoap writes to this dir.
       owner: "{{ libretime_user }}"
