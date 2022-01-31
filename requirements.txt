@@ -1,0 +1,11 @@
+## Ansible
+ansible-core>=2.12,<2.13
+ansible-lint
+
+## Dev
+black
+molecule
+molecule-vagrant
+pylint
+pytest
+pytest-testinfra

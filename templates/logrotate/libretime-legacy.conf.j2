@@ -1,0 +1,10 @@
+{{ libretime_log_dir }}/legacy.log {
+  compress
+  rotate 10
+  size 1000k
+  missingok
+  notifempty
+  sharedscripts
+  postrotate
+  endscript
+}

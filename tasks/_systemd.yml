@@ -1,0 +1,23 @@
+---
+# service_name: required
+# service_dest:
+# service_enabled: true
+
+- name: deploy {{ service_name }} systemd service
+  template:
+    src: systemd/{{ service_name }}.service.j2
+    dest: /etc/systemd/system/{{ service_dest | default(service_name) }}.service
+    owner: root
+    group: root
+    mode: 0644
+  register: systemd
+
+- name: reload systemd daemon # noqa no-handler
+  systemd:
+    daemon_reload: true
+  when: systemd is changed
+
+- name: enable {{ service_name }} systemd service
+  systemd:
+    name: "{{ service_name }}.service"
+    enabled: "{{ service_enabled | default(true) }}"

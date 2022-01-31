@@ -1,0 +1,63 @@
+---
+- import_tasks: _dependencies.yml
+  vars:
+    packages_path: "{{ libretime_checkout_dest }}/legacy"
+
+- name: install composer dependencies
+  apt:
+    state: present
+    name: [unzip]
+
+- name: get composer installer signature
+  uri:
+    url: https://composer.github.io/installer.sig
+    return_content: true
+  register: composer_installer_signature
+
+- name: download composer installer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/composer-installer.php
+    mode: 0755
+    checksum: "sha384:{{ composer_installer_signature.content }}"
+
+- name: run composer installer
+  command: >
+    php /tmp/composer-installer.php
+      --install-dir=/usr/local/bin
+      --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: build legacy
+  command: make -C {{ libretime_checkout_dest }}/legacy build
+  args:
+    creates: "{{ libretime_checkout_dest }}/legacy/vendor"
+
+- name: create legacy web root directory
+  file:
+    path: "{{ libretime_legacy_web_root }}"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
+    state: directory
+    mode: 0755
+
+- name: copy legacy files in the web root
+  copy:
+    src: "{{ libretime_checkout_dest }}/legacy/"
+    dest: "{{ libretime_legacy_web_root }}"
+    remote_src: yes
+
+- name: copy VERSION file in the web root
+  copy:
+    src: "{{ libretime_checkout_dest }}/VERSION"
+    dest: "{{ libretime_legacy_web_root }}"
+    remote_src: yes
+
+- name: deploy legacy logrotate config
+  template:
+    src: logrotate/libretime-legacy.conf.j2
+    dest: /etc/logrotate.d/libretime-legacy
+    owner: root
+    group: root
+    mode: 0644

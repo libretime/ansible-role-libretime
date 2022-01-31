@@ -1,0 +1,127 @@
+---
+- name: write configuration file
+  template:
+    src: libretime/config.ini.j2
+    dest: "{{ libretime_config_filepath }}"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
+    mode: 0640
+    backup: true
+  notify:
+    - restart libretime-analyzer
+    - restart libretime-api
+    - restart libretime-playout
+    - restart libretime-liquidsoap
+    - restart libretime-celery
+
+- name: run legacy database migration
+  become: true
+  become_user: postgres
+  block:
+    - name: probe database schema table
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_database_name }}"
+        login_host: "{{ libretime_database_host }}"
+        login_port: "{{ libretime_database_port }}"
+        login_user: "{{ libretime_database_user }}"
+        login_password: "{{ libretime_database_password }}"
+        query: >
+          SELECT EXISTS (
+            SELECT FROM information_schema.tables
+            WHERE  table_schema = 'public'
+            AND    table_name   = 'cc_pref'
+          )
+      register: database_schema_table
+
+    - name: set database_is_migrated
+      set_fact:
+        database_is_migrated: "{{ database_schema_table.query_result[0].exists }}"
+
+    - name: initial database schema
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_database_name }}"
+        login_host: "{{ libretime_database_host }}"
+        login_port: "{{ libretime_database_port }}"
+        login_user: "{{ libretime_database_user }}"
+        login_password: "{{ libretime_database_password }}"
+        path_to_script: "{{ libretime_checkout_dest }}/legacy/build/sql/{{ item }}"
+        as_single_query: true
+        encoding: UTF-8
+      with_items:
+        - schema.sql
+        - defaultdata.sql
+      when: not database_is_migrated
+
+    - name: create storage dir
+      file:
+        path: "{{ libretime_storage_dir }}"
+        owner: "{{ libretime_user }}"
+        group: "{{ libretime_user }}"
+        state: directory
+        recurse: true
+        mode: 0755
+      when: not database_is_migrated
+
+    - name: set storage path
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_database_name }}"
+        login_host: "{{ libretime_database_host }}"
+        login_port: "{{ libretime_database_port }}"
+        login_user: "{{ libretime_database_user }}"
+        login_password: "{{ libretime_database_password }}"
+        query: >
+          INSERT INTO cc_music_dirs (directory, type)
+          VALUES (%s, %s)
+        positional_args:
+          - "{{ libretime_storage_dir }}"
+          - "stor"
+      when: not database_is_migrated
+
+    - name: set cors url
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_database_name }}"
+        login_host: "{{ libretime_database_host }}"
+        login_port: "{{ libretime_database_port }}"
+        login_user: "{{ libretime_database_user }}"
+        login_password: "{{ libretime_database_password }}"
+        query: >
+          INSERT INTO cc_pref (keystr, valstr)
+          VALUES ('allowed_cors_urls', %s )
+        positional_args:
+          - "{{ libretime_root_url }}"
+      when: not database_is_migrated
+
+    - name: set default icecast password
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_database_name }}"
+        login_host: "{{ libretime_database_host }}"
+        login_port: "{{ libretime_database_port }}"
+        login_user: "{{ libretime_database_user }}"
+        login_password: "{{ libretime_database_password }}"
+        query: >
+          INSERT INTO cc_pref (keystr, valstr)
+          VALUES ('default_icecast_password', %s )
+        positional_args:
+          - "{{ libretime_icecast_admin_password }}"
+      when: not database_is_migrated
+
+    - name: set initial icecast passwords
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_database_name }}"
+        login_host: "{{ libretime_database_host }}"
+        login_port: "{{ libretime_database_port }}"
+        login_user: "{{ libretime_database_user }}"
+        login_password: "{{ libretime_database_password }}"
+        query: >
+          UPDATE cc_stream_setting
+          SET value = %s
+          WHERE keyname = '{{ item }}'
+        positional_args:
+          - "{{ libretime_icecast_admin_password }}"
+      with_items: "{{ ['s1', 's2', 's3', 's4'] | product(['pass', 'admin_pass']) | map('join', '_') }}"
+      when: not database_is_migrated
+
+- name: run api database migration # noqa no-changed-when
+  become: true
+  become_user: "{{ libretime_user }}"
+  command: libretime-api migrate

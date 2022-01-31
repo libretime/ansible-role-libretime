@@ -1,2 +1,35 @@
 ---
-# handlers file for ansible-role-libretime
+- name: restart apache2
+  systemd:
+    name: apache2
+    state: restarted
+
+- name: restart icecast
+  systemd:
+    name: icecast2
+    state: restarted
+
+- name: restart libretime-api
+  systemd:
+    name: libretime-api
+    state: restarted
+
+- name: restart libretime-playout
+  systemd:
+    name: libretime-playout
+    state: restarted
+
+- name: restart libretime-liquidsoap
+  systemd:
+    name: libretime-liquidsoap
+    state: restarted
+
+- name: restart libretime-celery
+  systemd:
+    name: libretime-celery
+    state: restarted
+
+- name: restart libretime-analyzer
+  systemd:
+    name: libretime-analyzer
+    state: restarted

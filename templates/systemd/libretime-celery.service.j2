@@ -1,0 +1,20 @@
+[Unit]
+Description=LibreTime Worker Service
+After=network.target
+
+[Service]
+Environment=RMQ_CONFIG_FILE={{ libretime_config_filepath }}
+WorkingDirectory={{ libretime_home }}/worker
+
+ExecStart=/usr/local/bin/celery worker \
+    --app libretime_worker.tasks:celery \
+    --time-limit=1800 \
+    --concurrency=1 \
+    --config=celeryconfig \
+    --loglevel=INFO
+Restart=always
+User={{ libretime_user }}
+Group={{ libretime_user }}
+
+[Install]
+WantedBy=multi-user.target

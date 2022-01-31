@@ -1,0 +1,12 @@
+---
+- name: install liquidsoap
+  apt:
+    state: present
+    name: liquidsoap
+  when: libretime_liquidsoap_package_url is not defined
+
+- name: install liquidsoap from url
+  apt:
+    state: present
+    deb: "{{ libretime_liquidsoap_package_url }}"
+  when: libretime_liquidsoap_package_url is defined

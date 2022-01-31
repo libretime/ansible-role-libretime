@@ -1,0 +1,16 @@
+[Unit]
+Description=LibreTime Media Analyzer Service
+After=network.target
+
+[Service]
+Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/analyzer.log
+Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
+WorkingDirectory={{ libretime_home }}/analyzer
+
+ExecStart=/usr/local/bin/libretime-analyzer
+Restart=always
+User={{ libretime_user }}
+Group={{ libretime_user }}
+
+[Install]
+WantedBy=multi-user.target

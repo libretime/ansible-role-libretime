@@ -1,0 +1,14 @@
+[Unit]
+Description=LibreTime API Service
+After=network.target
+
+[Service]
+Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
+
+ExecStart=/usr/bin/uwsgi {{ libretime_config_dir }}/api.ini
+Restart=always
+User={{ libretime_user }}
+Group={{ libretime_user }}
+
+[Install]
+WantedBy=multi-user.target

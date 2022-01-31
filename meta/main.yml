@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: libretime
   author: jooola
   description: Ansible role to install Libretime
 

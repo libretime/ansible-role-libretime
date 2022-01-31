@@ -1,0 +1,8 @@
+---
+- name: install api_client package
+  pip:
+    name: "file://{{ libretime_checkout_dest }}/api_client"
+  notify:
+    - restart libretime-analyzer
+    - restart libretime-playout
+    - restart libretime-liquidsoap

@@ -1,0 +1,12 @@
+[uwsgi]
+module = libretime_api.wsgi
+
+master = true
+plugin = python3
+processes = 10
+vacuum = true
+{# socket = /run/libretime-api.sock; #}
+http-socket = :8081
+
+uid = {{ libretime_user }}
+gid = {{ libretime_user }}

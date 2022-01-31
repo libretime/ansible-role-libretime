@@ -10,3 +10,12 @@ updates:
     labels:
       - ci
       - dependencies
+
+  # Maintain dependencies
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - python
+      - dependencies

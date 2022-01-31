@@ -1,0 +1,40 @@
+---
+- import_tasks: _dependencies.yml
+  vars:
+    packages_path: "{{ libretime_checkout_dest }}/api"
+
+- name: install api package
+  pip:
+    name: "file://{{ libretime_checkout_dest }}/api"
+  notify: restart libretime-api
+
+- name: deploy api config
+  template:
+    src: uwsgi/api.ini.j2
+    dest: "{{ libretime_config_dir }}/api.ini"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
+    mode: 0640
+  notify: restart libretime-api
+
+- name: create api web root directory
+  file:
+    path: "{{ libretime_api_web_root }}"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
+    state: directory
+    mode: 0755
+
+- name: generate api files in the web root
+  become: true
+  become_user: "{{ libretime_user }}"
+  command: libretime-api collectstatic --clear --noinput
+  args:
+    creates: "{{ libretime_api_web_root }}/*"
+  environment:
+    LIBRETIME_STATIC_ROOT: "{{ libretime_api_web_root }}"
+
+- import_tasks: _systemd.yml
+  vars:
+    service_name: libretime-api
+  notify: restart libretime-api

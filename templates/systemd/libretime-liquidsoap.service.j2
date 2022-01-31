@@ -1,0 +1,16 @@
+[Unit]
+Description=LibreTime Liquidsoap Service
+After=network.target
+
+[Service]
+Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/liquidsoap.log
+Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
+WorkingDirectory={{ libretime_home }}/playout
+
+ExecStart=/usr/local/bin/libretime-liquidsoap
+Restart=always
+User={{ libretime_user }}
+Group={{ libretime_user }}
+
+[Install]
+WantedBy=multi-user.target

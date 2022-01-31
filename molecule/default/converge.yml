@@ -1,0 +1,32 @@
+---
+- name: Converge
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: bypass deb.debian.org repository
+      replace:
+        path: /etc/apt/sources.list
+        regexp: 'http:\/\/deb\.debian\.org'
+        replace: "http://cdn-fastly.deb.debian.org"
+
+    - name: install dependencies
+      apt:
+        state: present
+        name:
+          - git
+          - make
+          - auto-apt-proxy
+          - acl # Is this only required while testing ?
+        update_cache: yes
+
+    - name: include libretime
+      include_role:
+        name: ansible-role-libretime
+      vars:
+        libretime_checkout_url: https://github.com/jooola/libretime.git
+        libretime_checkout_version: ansible
+
+        libretime_root_url: http://192.168.121.10:8888/
+        libretime_listen_port: 8888
+        libretime_legacy_api_key: key

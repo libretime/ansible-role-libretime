@@ -1,0 +1,8 @@
+---
+- name: install shared package
+  pip:
+    name: "file://{{ libretime_checkout_dest }}/shared"
+  notify:
+    - restart libretime-analyzer
+    - restart libretime-playout
+    - restart libretime-liquidsoap
