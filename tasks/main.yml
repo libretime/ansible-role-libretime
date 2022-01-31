@@ -22,6 +22,7 @@
 - name: update apt cache
   apt:
     update_cache: yes
+  when: ansible_distribution == "Ubuntu"
 
 - import_tasks: postgresql.yml
   when: libretime_postgresql_install
