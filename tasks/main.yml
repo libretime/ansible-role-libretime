@@ -2,6 +2,12 @@
 - name: include distribution specific vars
   include_vars: "{{ ansible_distribution_release }}.yml"
 
+- name: install dependencies
+  apt:
+    state: present
+    name: [git, make]
+    update_cache: yes
+
 - name: checkout repository
   git:
     repo: "{{ libretime_checkout_url }}"
@@ -12,6 +18,10 @@
   apt_repository:
     repo: ppa:libretime/libretime
   when: ansible_distribution == "Ubuntu"
+
+- name: update apt cache
+  apt:
+    update_cache: yes
 
 - import_tasks: apache.yml
 
