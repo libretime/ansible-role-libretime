@@ -23,8 +23,6 @@
   apt:
     update_cache: yes
 
-- import_tasks: apache.yml
-
 - import_tasks: postgresql.yml
   when: libretime_postgresql_install
 
@@ -41,6 +39,11 @@
   command: make -C {{ libretime_checkout_dest }} VERSION
   args:
     creates: "{{ libretime_checkout_dest }}/VERSION"
+
+- import_tasks: apache.yml
+
+- import_tasks: legacy.yml
+  when: libretime_legacy_install
 
 - name: create {{ libretime_user }} user
   user:
@@ -99,9 +102,6 @@
 
 - import_tasks: playout.yml
   when: libretime_playout_install
-
-- import_tasks: legacy.yml
-  when: libretime_legacy_install
 
 - import_tasks: setup.yml
   when: libretime_setup
