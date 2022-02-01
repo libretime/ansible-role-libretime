@@ -2,9 +2,10 @@
 api_key = {{ libretime_legacy_api_key }}
 web_server_user = {{ libretime_user }}
 
-base_url = {{ libretime_root_url | urlsplit('hostname') }}
-base_port = {{ libretime_listen_port }}
-base_dir = "/"
+protocol = {{ root_url_scheme }}
+base_url = {{ root_url_host }}
+base_port = {{ root_url_port }}
+base_dir = {{ root_url_path }}
 force_ssl =
 
 airtime_dir =

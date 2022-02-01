@@ -2,6 +2,25 @@
 - name: include distribution specific vars
   include_vars: "{{ ansible_distribution_release }}.yml"
 
+- name: exploding root_url
+  set_fact:
+    root_url_split: "{{ libretime_root_url | urlsplit }}"
+
+- name: handling required fields for root_url
+  set_fact:
+    root_url_scheme: "{{ root_url_split.scheme }}"
+    root_url_host: "{{ root_url_split.hostname }}"
+    root_url_port: "{{ root_url_split.port | default(443 if root_url_split.scheme == 'https' else 80, true) }}"
+    root_url_path: "{{ root_url_split.path | regex_replace('\\/$', '') }}/"
+
+- assert:
+    that:
+      - root_url_scheme in ('http', 'https')
+      - root_url_host | length > 0
+      - root_url_port | length > 0
+      - root_url_path | length > 0
+    fail_msg: libretime_root_url '{{ libretime_root_url }}' is invalid!
+
 - name: install dependencies
   apt:
     state: present
