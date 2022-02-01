@@ -27,25 +27,6 @@
   become: true
   become_user: postgres
   block:
-    - name: probe database schema table
-      community.postgresql.postgresql_query:
-        db: "{{ libretime_database_name }}"
-        login_host: "{{ libretime_database_host }}"
-        login_port: "{{ libretime_database_port }}"
-        login_user: "{{ libretime_database_user }}"
-        login_password: "{{ libretime_database_password }}"
-        query: >
-          SELECT EXISTS (
-            SELECT FROM information_schema.tables
-            WHERE  table_schema = 'public'
-            AND    table_name   = 'cc_pref'
-          )
-      register: database_schema_table
-
-    - name: set database_is_migrated
-      set_fact:
-        database_is_migrated: "{{ database_schema_table.query_result[0].exists }}"
-
     - name: initial database schema
       community.postgresql.postgresql_query:
         db: "{{ libretime_database_name }}"
@@ -59,7 +40,6 @@
       with_items:
         - schema.sql
         - defaultdata.sql
-      when: not database_is_migrated
 
     - name: set storage path
       community.postgresql.postgresql_query:
@@ -74,7 +54,6 @@
         positional_args:
           - "{{ libretime_storage_dir }}"
           - "stor"
-      when: not database_is_migrated
 
     - name: set cors url
       community.postgresql.postgresql_query:
@@ -88,7 +67,6 @@
           VALUES ('allowed_cors_urls', %s )
         positional_args:
           - "{{ libretime_root_url }}"
-      when: not database_is_migrated
 
     - name: set default icecast password
       community.postgresql.postgresql_query:
@@ -102,7 +80,6 @@
           VALUES ('default_icecast_password', %s )
         positional_args:
           - "{{ libretime_icecast_admin_password }}"
-      when: not database_is_migrated
 
     - name: set initial icecast passwords
       community.postgresql.postgresql_query:
@@ -118,7 +95,8 @@
         positional_args:
           - "{{ libretime_icecast_admin_password }}"
       with_items: "{{ ['s1', 's2', 's3', 's4'] | product(['pass', 'admin_pass']) | map('join', '_') }}"
-      when: not database_is_migrated
+
+  when: not database_migrated
 
 - name: run api database migration # noqa no-changed-when
   become: true
