@@ -1,5 +1,5 @@
 ---
-- name: install worker package
+- name: install worker python package
   pip:
     name: "file://{{ libretime_checkout_dest }}/worker"
   notify: restart libretime-celery

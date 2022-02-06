@@ -1,5 +1,5 @@
 ---
-- name: install shared package
+- name: install shared python package
   pip:
     name: "file://{{ libretime_checkout_dest }}/shared"
   notify:

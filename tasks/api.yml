@@ -3,7 +3,7 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/api"
 
-- name: install api package
+- name: install api python package
   pip:
     name: "file://{{ libretime_checkout_dest }}/api"
   notify: restart libretime-api

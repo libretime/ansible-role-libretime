@@ -3,7 +3,7 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/playout"
 
-- name: install playout package
+- name: install playout python package
   pip:
     name: "file://{{ libretime_checkout_dest }}/playout"
   notify:

@@ -1,5 +1,5 @@
 ---
-- name: install api_client package
+- name: install api_client python package
   pip:
     name: "file://{{ libretime_checkout_dest }}/api_client"
   notify:
