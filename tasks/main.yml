@@ -33,6 +33,11 @@
     dest: "{{ libretime_checkout_dest }}"
     version: "{{ libretime_checkout_version }}"
 
+- name: build VERSION file
+  command: make -C {{ libretime_checkout_dest }} VERSION
+  args:
+    creates: "{{ libretime_checkout_dest }}/VERSION"
+
 - name: add libretime ppa
   apt_repository:
     repo: ppa:libretime/libretime
@@ -55,15 +60,7 @@
 - import_tasks: liquidsoap.yml
   when: libretime_liquidsoap_install
 
-- name: build VERSION file
-  command: make -C {{ libretime_checkout_dest }} VERSION
-  args:
-    creates: "{{ libretime_checkout_dest }}/VERSION"
-
 - import_tasks: apache.yml
-
-- import_tasks: legacy.yml
-  when: libretime_legacy_install
 
 - name: create {{ libretime_user }} user
   user:
@@ -122,6 +119,9 @@
 
 - import_tasks: playout.yml
   when: libretime_playout_install
+
+- import_tasks: legacy.yml
+  when: libretime_legacy_install
 
 - import_tasks: setup.yml
   when: libretime_setup
