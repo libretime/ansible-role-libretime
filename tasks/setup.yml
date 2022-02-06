@@ -37,7 +37,7 @@
           INSERT INTO cc_music_dirs (directory, type)
           VALUES (%s, %s)
         positional_args:
-          - "{{ libretime_storage_dir }}"
+          - "{{ libretime_storage_dir | regex_replace('\\/$', '') }}/" # Trailing slash is required
           - "stor"
 
     - name: set cors url
