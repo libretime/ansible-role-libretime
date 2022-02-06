@@ -5,18 +5,13 @@ driver:
     name: libvirt
 
 platforms:
-  - name: buster
-    box: debian/buster64
+  - name: instance
+    box: debian/bullseye64
     memory: 1024
     cpus: 2
     interfaces:
       - network_name: private_network
         ip: 192.168.121.10
-
-  # - name: bullseye
-  #   box: debian/bullseye64
-  #   memory: 1024
-  #   cpus: 2
 
 provisioner:
   name: ansible
