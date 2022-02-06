@@ -40,10 +40,10 @@ Listen {{ libretime_listen_port }}
     </Directory>
 
     ProxyPreserveHost On
-    ProxyPass /api/v2/ unix:/run/libretime-api.sock|uwsgi://libretime-api/api/v2/
-    ProxyPassReverse /api/v2/ unix:/run/libretime-api.sock|uwsgi://libretime-api/api/v2/
-    ProxyPass /api-auth/ unix:/run/libretime-api.sock|uwsgi://libretime-api/api-auth/
-    ProxyPassReverse /api-auth/ unix:/run/libretime-api.sock|uwsgi://libretime-api/api-auth/
+    ProxyPass /api/v2/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api/v2/
+    ProxyPassReverse /api/v2/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api/v2/
+    ProxyPass /api-auth/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api-auth/
+    ProxyPassReverse /api-auth/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api-auth/
 
     Alias /api/static {{ libretime_api_web_root }}
     <Directory {{ libretime_api_web_root }}>

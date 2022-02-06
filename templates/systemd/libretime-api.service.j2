@@ -3,6 +3,11 @@ Description=LibreTime API Service
 After=network.target
 
 [Service]
+Type=notify
+NotifyAccess=all
+KillSignal=SIGQUIT
+RuntimeDirectory=libretime
+
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
 
 ExecStart=/usr/bin/uwsgi {{ libretime_config_dir }}/api.ini
