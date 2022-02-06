@@ -8,8 +8,8 @@ Listen {{ libretime_listen_port }}
     ServerAdmin webmaster@localhost
     DocumentRoot {{ libretime_legacy_web_root }}/public
 
-    ErrorLog ${APACHE_LOG_DIR}/error_libretime.log
-    CustomLog ${APACHE_LOG_DIR}/access_libretime.log combined
+    ErrorLog ${APACHE_LOG_DIR}/libretime.error.log
+    CustomLog ${APACHE_LOG_DIR}/libretime.access.log combined
 
     AddOutputFilterByType DEFLATE text/plain text/html text/css application/javascript application/json
 
