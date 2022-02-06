@@ -1,19 +1,4 @@
 ---
-- name: write configuration file
-  template:
-    src: libretime/config.ini.j2
-    dest: "{{ libretime_config_filepath }}"
-    owner: "{{ libretime_user }}"
-    group: "{{ libretime_user }}"
-    mode: 0640
-    backup: true
-  notify:
-    - restart libretime-analyzer
-    - restart libretime-api
-    - restart libretime-playout
-    - restart libretime-liquidsoap
-    - restart libretime-celery
-
 - name: create storage dir
   file:
     path: "{{ libretime_storage_dir }}"
