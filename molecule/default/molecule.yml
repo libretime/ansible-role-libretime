@@ -5,13 +5,21 @@ driver:
     name: libvirt
 
 platforms:
-  - name: instance
+  - name: bullseye
     box: debian/bullseye64
     memory: 1024
     cpus: 2
     interfaces:
       - network_name: private_network
         ip: 192.168.121.10
+
+  - name: focal
+    box: generic/ubuntu2004
+    memory: 1024
+    cpus: 2
+    interfaces:
+      - network_name: private_network
+        ip: 192.168.121.11
 
 provisioner:
   name: ansible
