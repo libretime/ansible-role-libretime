@@ -4,6 +4,11 @@
     state: present
     name: [icecast2, python3-lxml]
 
+- name: enable icecast systemd service
+  systemd:
+    name: icecast2.service
+    enabled: true
+
 - name: set icecast passwords
   community.general.xml:
     path: /etc/icecast2/icecast.xml
