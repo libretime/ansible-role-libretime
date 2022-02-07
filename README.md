@@ -21,6 +21,8 @@ See the `requirements.yml` file for details.
   roles:
     - role: libretime
       libretime_root_url: https://station.radio.org
+      libretime_listen_port: 8080
+      libretime_legacy_api_key: a182_your_secret_key_c87f
 ```
 
 ## License
