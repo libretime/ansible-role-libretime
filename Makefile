@@ -17,5 +17,8 @@ install: $(VENV)
 	pip install --upgrade -r requirements.txt
 	ansible-galaxy install -r requirements.yml
 
+lint: $(VENV)
+	ansible-lint --force-color
+
 clean:
 	rm -Rf $(VENV)
