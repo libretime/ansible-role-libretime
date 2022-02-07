@@ -39,17 +39,6 @@
   args:
     creates: "{{ libretime_checkout_dest }}/VERSION"
 
-- name: add libretime ppa
-  apt_repository:
-    repo: ppa:libretime/libretime
-  when: ansible_distribution == "Ubuntu"
-  register: libretime_ppa
-
-- name: update apt cache # noqa no-handler
-  apt:
-    update_cache: yes
-  when: libretime_ppa is changed
-
 - import_tasks: postgresql.yml
   when: libretime_postgresql_install
 
