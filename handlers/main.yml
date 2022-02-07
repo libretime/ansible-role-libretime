@@ -1,4 +1,6 @@
 ---
+# The order of the handlers matters
+
 - name: restart apache2
   systemd:
     name: apache2
@@ -13,6 +15,11 @@
   systemd:
     name: libretime-api
     state: restarted
+
+- name: run libretime-api database migration
+  become: true
+  become_user: "{{ libretime_user }}"
+  command: libretime-api migrate
 
 - name: restart libretime-playout
   systemd:

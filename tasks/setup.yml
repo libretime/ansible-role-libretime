@@ -82,8 +82,3 @@
       with_items: "{{ ['s1', 's2', 's3', 's4'] | product(['pass', 'admin_pass']) | map('join', '_') }}"
 
   when: not database_migrated
-
-- name: run api database migration # noqa no-changed-when
-  become: true
-  become_user: "{{ libretime_user }}"
-  command: libretime-api migrate

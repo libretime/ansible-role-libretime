@@ -6,7 +6,9 @@
 - name: install api python package
   pip:
     name: "file://{{ libretime_checkout_dest }}/api"
-  notify: restart libretime-api
+  notify:
+    - restart libretime-api
+    - run libretime-api database migration
 
 - name: deploy api config
   template:
