@@ -4,9 +4,10 @@
     state: present
     name: [icecast2, python3-lxml]
 
-- name: enable icecast systemd service
+- name: start and enable icecast systemd service
   systemd:
     name: icecast2.service
+    state: started
     enabled: true
 
 - name: set icecast passwords
