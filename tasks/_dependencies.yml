@@ -2,12 +2,16 @@
 # packages_path: required
 # packages_args:
 
+# Custom liquidsoap packages have weird names 'liquidsoap-v1.4.4',
+# reinstalling 'liquidsoap' over it will fail.
 - name: generate dependencies list from {{ packages_path }}
   command:
     cmd: >
       {{ libretime_checkout_dest }}/tools/packages.py --format=line
       {{ ansible_distribution_release }}
-      {{ packages_path }} {{ packages_args | default('') }}
+      {{ packages_path }}
+      {{ packages_args | default('') }}
+      {{ '--exclude=liquidsoap' if libretime_liquidsoap_package_url else '' }}
   register: dependencies
   changed_when: false
 
