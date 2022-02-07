@@ -13,7 +13,8 @@
     root_url_port: "{{ root_url_split.port | default(443 if root_url_split.scheme == 'https' else 80, true) }}"
     root_url_path: "{{ root_url_split.path | regex_replace('\\/$', '') }}/"
 
-- assert:
+- name: validate root_url
+  assert:
     that:
       - root_url_scheme in ('http', 'https')
       - root_url_host | length > 0
