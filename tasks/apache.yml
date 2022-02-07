@@ -20,23 +20,6 @@
     - proxy_http
     - proxy_uwsgi
 
-- name: deploy apache2 conf
-  template:
-    src: apache/libretime.conf.j2
-    dest: /etc/apache2/sites-available/libretime.conf
-    owner: root
-    group: root
-    mode: 0644
-    backup: true
-  notify: restart apache2
-
-- name: enable apache2 conf
-  file:
-    src: /etc/apache2/sites-available/libretime.conf
-    dest: /etc/apache2/sites-enabled/libretime.conf
-    state: link
-  notify: restart apache2
-
 - name: enable/start apache2
   systemd:
     name: apache2
