@@ -43,11 +43,12 @@
   apt_repository:
     repo: ppa:libretime/libretime
   when: ansible_distribution == "Ubuntu"
+  register: libretime_ppa
 
 - name: update apt cache
   apt:
     update_cache: yes
-  when: ansible_distribution == "Ubuntu"
+  when: libretime_ppa is changed
 
 - import_tasks: postgresql.yml
   when: libretime_postgresql_install
