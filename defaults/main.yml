@@ -1,5 +1,5 @@
 ---
-# libretime_root_url: required
+libretime_root_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_user: www-data
 libretime_listen_port: 80
 libretime_max_upload_size: 512M
@@ -56,7 +56,7 @@ libretime_api_web_root: /usr/share/libretime/api
 ########################################################################################
 libretime_legacy_install: true
 libretime_legacy_web_root: /usr/share/libretime/legacy
-# libretime_legacy_api_key: required
+libretime_legacy_api_key: hackme
 
 # > Postgresql
 ########################################################################################
