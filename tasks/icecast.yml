@@ -10,6 +10,13 @@
     state: started
     enabled: true
 
+- name: set icecast listen port
+  community.general.xml:
+    path: /etc/icecast2/icecast.xml
+    xpath: /icecast/listen-socket/port
+    value: "{{ libretime_icecast_listen_port | quote }}"
+  notify: restart icecast
+
 - name: set icecast passwords
   community.general.xml:
     path: /etc/icecast2/icecast.xml
