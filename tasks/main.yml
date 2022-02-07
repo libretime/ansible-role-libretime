@@ -45,7 +45,7 @@
   when: ansible_distribution == "Ubuntu"
   register: libretime_ppa
 
-- name: update apt cache
+- name: update apt cache # noqa no-handler
   apt:
     update_cache: yes
   when: libretime_ppa is changed
