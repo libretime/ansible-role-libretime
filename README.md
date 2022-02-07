@@ -1,5 +1,7 @@
 # ansible-role-libretime
 
+> This tool not yet stable, breaking changes may occur without notice.
+
 Deploy `libretime` using Ansible.
 
 ## Requirements
