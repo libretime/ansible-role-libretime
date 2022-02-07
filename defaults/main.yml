@@ -12,28 +12,9 @@ libretime_home: /var/lib/libretime
 libretime_log_dir: /var/log/libretime
 libretime_config_dir: /etc/airtime
 libretime_config_filepath: "{{ libretime_config_dir }}/airtime.conf"
-
-# > Setup
-########################################################################################
-libretime_setup: true
-
 libretime_storage_dir: /srv/libretime/data
 
-libretime_database_host: localhost
-libretime_database_port: 5432
-libretime_database_name: libretime
-libretime_database_user: libretime
-libretime_database_password: libretime
-
-libretime_rabbitmq_host: localhost
-libretime_rabbitmq_port: 5672
-libretime_rabbitmq_vhost: /libretime
-libretime_rabbitmq_user: libretime
-libretime_rabbitmq_password: libretime
-
-libretime_icecast_source_password: hackme
-libretime_icecast_relay_password: hackme
-libretime_icecast_admin_password: hackme
+libretime_setup: true
 
 # > Analyzer
 ########################################################################################
@@ -62,13 +43,29 @@ libretime_legacy_api_key: hackme
 ########################################################################################
 libretime_postgresql_install: true
 
+libretime_database_host: localhost
+libretime_database_port: 5432
+libretime_database_name: libretime
+libretime_database_user: libretime
+libretime_database_password: libretime
+
 # > RabbitMQ
 ########################################################################################
 libretime_rabbitmq_install: true
 
+libretime_rabbitmq_host: localhost
+libretime_rabbitmq_port: 5672
+libretime_rabbitmq_vhost: /libretime
+libretime_rabbitmq_user: libretime
+libretime_rabbitmq_password: libretime
+
 # > Icecast
 ########################################################################################
 libretime_icecast_install: true
+
+libretime_icecast_source_password: hackme
+libretime_icecast_relay_password: hackme
+libretime_icecast_admin_password: hackme
 
 # > Liquidsoap
 ########################################################################################
