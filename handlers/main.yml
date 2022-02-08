@@ -15,6 +15,7 @@
   systemd:
     name: libretime-api
     state: restarted
+  when: libretime_allow_restart
 
 - name: run libretime-api database migration
   become: true
@@ -25,18 +26,22 @@
   systemd:
     name: libretime-playout
     state: restarted
+  when: libretime_allow_restart
 
 - name: restart libretime-liquidsoap
   systemd:
     name: libretime-liquidsoap
     state: restarted
+  when: libretime_allow_restart
 
 - name: restart libretime-celery
   systemd:
     name: libretime-celery
     state: restarted
+  when: libretime_allow_restart
 
 - name: restart libretime-analyzer
   systemd:
     name: libretime-analyzer
     state: restarted
+  when: libretime_allow_restart

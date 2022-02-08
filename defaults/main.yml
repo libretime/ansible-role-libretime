@@ -1,4 +1,6 @@
 ---
+libretime_allow_restart: true
+
 libretime_root_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_user: www-data
 libretime_listen_port: 80
