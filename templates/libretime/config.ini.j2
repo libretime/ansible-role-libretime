@@ -16,11 +16,11 @@ auth = local
 cache_ahead_hours = 1
 
 [database]
-host = {{ libretime_database_host }}
-port = {{ libretime_database_port }}
-name = {{ libretime_database_name }}
-user = {{ libretime_database_user }}
-password = {{ libretime_database_password }}
+host = {{ libretime_postgresql_host }}
+port = {{ libretime_postgresql_port }}
+name = {{ libretime_postgresql_name }}
+user = {{ libretime_postgresql_user }}
+password = {{ libretime_postgresql_password }}
 
 [rabbitmq]
 host = {{ libretime_rabbitmq_host }}

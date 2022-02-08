@@ -14,11 +14,11 @@
   block:
     - name: initial database schema
       community.postgresql.postgresql_query:
-        db: "{{ libretime_database_name }}"
-        login_host: "{{ libretime_database_host }}"
-        login_port: "{{ libretime_database_port }}"
-        login_user: "{{ libretime_database_user }}"
-        login_password: "{{ libretime_database_password }}"
+        db: "{{ libretime_postgresql_name }}"
+        login_host: "{{ libretime_postgresql_host }}"
+        login_port: "{{ libretime_postgresql_port }}"
+        login_user: "{{ libretime_postgresql_user }}"
+        login_password: "{{ libretime_postgresql_password }}"
         path_to_script: "{{ libretime_checkout_dest }}/legacy/build/sql/{{ item }}"
         as_single_query: true
         encoding: UTF-8
@@ -28,11 +28,11 @@
 
     - name: set storage path
       community.postgresql.postgresql_query:
-        db: "{{ libretime_database_name }}"
-        login_host: "{{ libretime_database_host }}"
-        login_port: "{{ libretime_database_port }}"
-        login_user: "{{ libretime_database_user }}"
-        login_password: "{{ libretime_database_password }}"
+        db: "{{ libretime_postgresql_name }}"
+        login_host: "{{ libretime_postgresql_host }}"
+        login_port: "{{ libretime_postgresql_port }}"
+        login_user: "{{ libretime_postgresql_user }}"
+        login_password: "{{ libretime_postgresql_password }}"
         query: >
           INSERT INTO cc_music_dirs (directory, type)
           VALUES (%s, %s)
@@ -42,11 +42,11 @@
 
     - name: set cors url
       community.postgresql.postgresql_query:
-        db: "{{ libretime_database_name }}"
-        login_host: "{{ libretime_database_host }}"
-        login_port: "{{ libretime_database_port }}"
-        login_user: "{{ libretime_database_user }}"
-        login_password: "{{ libretime_database_password }}"
+        db: "{{ libretime_postgresql_name }}"
+        login_host: "{{ libretime_postgresql_host }}"
+        login_port: "{{ libretime_postgresql_port }}"
+        login_user: "{{ libretime_postgresql_user }}"
+        login_password: "{{ libretime_postgresql_password }}"
         query: >
           INSERT INTO cc_pref (keystr, valstr)
           VALUES ('allowed_cors_urls', %s )
@@ -55,11 +55,11 @@
 
     - name: set default icecast password
       community.postgresql.postgresql_query:
-        db: "{{ libretime_database_name }}"
-        login_host: "{{ libretime_database_host }}"
-        login_port: "{{ libretime_database_port }}"
-        login_user: "{{ libretime_database_user }}"
-        login_password: "{{ libretime_database_password }}"
+        db: "{{ libretime_postgresql_name }}"
+        login_host: "{{ libretime_postgresql_host }}"
+        login_port: "{{ libretime_postgresql_port }}"
+        login_user: "{{ libretime_postgresql_user }}"
+        login_password: "{{ libretime_postgresql_password }}"
         query: >
           INSERT INTO cc_pref (keystr, valstr)
           VALUES ('default_icecast_password', %s )
@@ -68,11 +68,11 @@
 
     - name: set initial icecast passwords
       community.postgresql.postgresql_query:
-        db: "{{ libretime_database_name }}"
-        login_host: "{{ libretime_database_host }}"
-        login_port: "{{ libretime_database_port }}"
-        login_user: "{{ libretime_database_user }}"
-        login_password: "{{ libretime_database_password }}"
+        db: "{{ libretime_postgresql_name }}"
+        login_host: "{{ libretime_postgresql_host }}"
+        login_port: "{{ libretime_postgresql_port }}"
+        login_user: "{{ libretime_postgresql_user }}"
+        login_password: "{{ libretime_postgresql_password }}"
         query: >
           UPDATE cc_stream_setting
           SET value = %s

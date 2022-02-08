@@ -26,7 +26,7 @@ See the `defaults/main.yml` file for details.
 
 #### PostgreSQL
 
-- `libretime_database_password` defines the PostgreSQL user password. This variable **SHOULD** be updated.
+- `libretime_postgresql_password` defines the PostgreSQL user password. This variable **SHOULD** be updated.
 
 #### RabbitMQ
 

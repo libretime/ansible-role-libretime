@@ -43,11 +43,11 @@ libretime_legacy_api_key: hackme
 ########################################################################################
 libretime_postgresql_install: true
 
-libretime_database_host: localhost
-libretime_database_port: 5432
-libretime_database_name: libretime
-libretime_database_user: libretime
-libretime_database_password: libretime
+libretime_postgresql_host: localhost
+libretime_postgresql_port: 5432
+libretime_postgresql_name: libretime
+libretime_postgresql_user: libretime
+libretime_postgresql_password: libretime
 
 # > RabbitMQ
 ########################################################################################
