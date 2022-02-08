@@ -51,6 +51,8 @@ libretime_postgresql_name: libretime
 libretime_postgresql_user: libretime
 libretime_postgresql_password: libretime
 
+# libretime_postgresql_restore_dump:
+
 # > RabbitMQ
 ########################################################################################
 libretime_rabbitmq_install: true
