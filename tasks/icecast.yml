@@ -10,23 +10,27 @@
     state: started
     enabled: true
 
-- name: set icecast listen port
-  community.general.xml:
-    path: /etc/icecast2/icecast.xml
-    xpath: /icecast/listen-socket/port
-    value: "{{ libretime_icecast_listen_port | quote }}"
-  notify: restart icecast
-
-- name: set icecast passwords
+- name: update icecast config
   community.general.xml:
     path: /etc/icecast2/icecast.xml
     xpath: "{{ item.xpath }}"
     value: "{{ item.value }}"
   with_items:
+    - xpath: /icecast/location
+      value: "{{ libretime_icecast_location }}"
+    - xpath: /icecast/admin
+      value: "{{ libretime_icecast_admin }}"
+    - xpath: /icecast/hostname
+      value: "{{ libretime_icecast_hostname }}"
+    - xpath: /icecast/listen-socket/port
+      value: "{{ libretime_icecast_listen_port | quote }}"
+
+    - xpath: /icecast/authentication/admin-user
+      value: "{{ libretime_icecast_admin_user }}"
+    - xpath: /icecast/authentication/admin-password
+      value: "{{ libretime_icecast_admin_password }}"
     - xpath: /icecast/authentication/source-password
       value: "{{ libretime_icecast_source_password }}"
     - xpath: /icecast/authentication/relay-password
       value: "{{ libretime_icecast_relay_password }}"
-    - xpath: /icecast/authentication/admin-password
-      value: "{{ libretime_icecast_admin_password }}"
   notify: restart icecast
