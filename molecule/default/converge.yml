@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   gather_facts: true
-  become: yes
+  become: true
 
   tasks:
     - name: bypass deb.debian.org repository
@@ -19,7 +19,7 @@
           - make
           - auto-apt-proxy
           - acl # Is this only required while testing ?
-        update_cache: yes
+        update_cache: true
 
     - name: include libretime
       include_role:

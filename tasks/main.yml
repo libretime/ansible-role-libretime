@@ -26,7 +26,7 @@
   apt:
     state: present
     name: [git, make]
-    update_cache: yes
+    update_cache: true
 
 - name: checkout repository
   git:
