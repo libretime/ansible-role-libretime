@@ -1,19 +1,10 @@
 [general]
 api_key = {{ libretime_legacy_api_key }}
-web_server_user = {{ libretime_user }}
 
 protocol = {{ root_url_scheme }}
 base_url = {{ root_url_host }}
 base_port = {{ root_url_port }}
 base_dir = {{ root_url_path }}
-force_ssl =
-
-airtime_dir =
-station_id =
-
-auth = local
-
-cache_ahead_hours = 1
 
 [database]
 host = {{ libretime_postgresql_host }}
@@ -28,6 +19,3 @@ port = {{ libretime_rabbitmq_port }}
 vhost = {{ libretime_rabbitmq_vhost }}
 user = {{ libretime_rabbitmq_user }}
 password = {{ libretime_rabbitmq_password }}
-
-[current_backend]
-storage_backend = file
