@@ -100,7 +100,7 @@
     - restart libretime-api
     - restart libretime-playout
     - restart libretime-liquidsoap
-    - restart libretime-celery
+    - restart libretime-worker
 
 - name: install python3
   apt:

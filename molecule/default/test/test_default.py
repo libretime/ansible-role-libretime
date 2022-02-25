@@ -16,7 +16,7 @@ def test_is_listening_on_required_port(host):
         "libretime-api",
         "libretime-playout",
         "libretime-liquidsoap",
-        "libretime-celery",
+        "libretime-worker",
     ],
 )
 def test_services_are_enabled_and_running(host, service_name):
