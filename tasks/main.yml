@@ -35,7 +35,7 @@
     version: "{{ libretime_checkout_version }}"
   register: libretime_checkout
 
-- name: clean checkout # noqa no-handler
+- name: clean checkout # noqa no-handler command-instead-of-module
   command: git clean -xdf
   args:
     chdir: "{{ libretime_checkout_dest }}"
