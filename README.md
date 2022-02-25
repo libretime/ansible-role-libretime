@@ -14,6 +14,7 @@ See the `defaults/main.yml` file for details.
 
 ### Important Role Variables
 
+- `libretime_allow_restart` defines whether the services should be restarted automatically. This variable **SHOULD** be updated. This flag is mainly used to prevent restarting a LibreTime service running in production.
 - `libretime_root_url` defines the public url used to access Libretime. This variable **MUST** be updated.
 - `libretime_listen_port` defines the port on which the web server will listen.
 - `libretime_legacy_api_key` define the legacy api key. This variable **MUST** be updated.
