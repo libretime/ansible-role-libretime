@@ -2,15 +2,17 @@
 Description=LibreTime Worker Service
 
 [Service]
-Environment=RMQ_CONFIG_FILE={{ libretime_config_filepath }}
+Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/worker.log
+Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 WorkingDirectory={{ libretime_home }}/worker
 
 ExecStart=/usr/local/bin/celery worker \
-    --app libretime_worker.tasks:celery \
+    --app=libretime_worker.tasks:worker \
+    --config=libretime_worker.config \
     --time-limit=1800 \
     --concurrency=1 \
-    --config=celeryconfig \
-    --loglevel=INFO
+    --loglevel=INFO \
+    --logfile=$LIBRETIME_LOG_FILEPATH
 Restart=always
 User={{ libretime_user }}
 Group={{ libretime_user }}

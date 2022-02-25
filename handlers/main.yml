@@ -34,9 +34,9 @@
     state: restarted
   when: libretime_allow_restart
 
-- name: restart libretime-celery
+- name: restart libretime-worker
   systemd:
-    name: libretime-celery
+    name: libretime-worker
     state: restarted
   when: libretime_allow_restart
 
