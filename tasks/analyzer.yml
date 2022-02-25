@@ -3,10 +3,11 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/analyzer"
 
-- name: install analyzer python package
+- name: install analyzer python package # noqa no-handler
   pip:
     name: "file://{{ libretime_checkout_dest }}/analyzer"
   notify: restart libretime-analyzer
+  when: libretime_checkout is changed
 
 - name: create analyzer working directory
   file:

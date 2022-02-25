@@ -3,12 +3,13 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/api"
 
-- name: install api python package
+- name: install api python package # noqa no-handler
   pip:
     name: "file://{{ libretime_checkout_dest }}/api"
   notify:
     - restart libretime-api
     - run libretime-api database migration
+  when: libretime_checkout is changed
 
 - name: deploy api config
   template:

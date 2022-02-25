@@ -1,8 +1,9 @@
 ---
-- name: install api_client python package
+- name: install api_client python package # noqa no-handler
   pip:
     name: "file://{{ libretime_checkout_dest }}/api_client"
   notify:
     - restart libretime-analyzer
     - restart libretime-playout
     - restart libretime-liquidsoap
+  when: libretime_checkout is changed

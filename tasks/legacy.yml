@@ -29,12 +29,13 @@
   args:
     creates: /usr/local/bin/composer
 
-- name: build legacy
-  command: make -C {{ libretime_checkout_dest }}/legacy build
-  args:
-    creates: "{{ libretime_checkout_dest }}/legacy/vendor"
+- name: clean legacy web root directory # noqa no-handler
+  file:
+    path: "{{ libretime_legacy_web_root }}"
+    state: absent
+  when: libretime_checkout is changed
 
-- name: create legacy web root directory
+- name: create legacy web root directory # noqa command-instead-of-module
   file:
     path: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
@@ -46,12 +47,23 @@
   copy:
     src: "{{ libretime_checkout_dest }}/legacy/"
     dest: "{{ libretime_legacy_web_root }}"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
     remote_src: true
+
+- name: build legacy
+  become: true
+  become_user: "{{ libretime_user }}"
+  command: make -C {{ libretime_legacy_web_root }} build
+  args:
+    creates: "{{ libretime_legacy_web_root }}/vendor"
 
 - name: copy VERSION file in the web root
   copy:
     src: "{{ libretime_checkout_dest }}/VERSION"
     dest: "{{ libretime_legacy_web_root }}"
+    owner: "{{ libretime_user }}"
+    group: "{{ libretime_user }}"
     remote_src: true
 
 - name: deploy apache2 conf

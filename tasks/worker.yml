@@ -1,8 +1,9 @@
 ---
-- name: install worker python package
+- name: install worker python package # noqa no-handler
   pip:
     name: "file://{{ libretime_checkout_dest }}/worker"
   notify: restart libretime-celery
+  when: libretime_checkout is changed
 
 - name: create worker working directory
   file:

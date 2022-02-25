@@ -33,6 +33,13 @@
     repo: "{{ libretime_checkout_url }}"
     dest: "{{ libretime_checkout_dest }}"
     version: "{{ libretime_checkout_version }}"
+  register: libretime_checkout
+
+- name: clean checkout # noqa no-handler
+  command: git clean -xdf
+  args:
+    chdir: "{{ libretime_checkout_dest }}"
+  when: libretime_checkout is changed
 
 - name: build VERSION file
   command: make -C {{ libretime_checkout_dest }} VERSION

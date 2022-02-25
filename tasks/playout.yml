@@ -3,12 +3,13 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/playout"
 
-- name: install playout python package
+- name: install playout python package # noqa no-handler
   pip:
     name: "file://{{ libretime_checkout_dest }}/playout"
   notify:
     - restart libretime-playout
     - restart libretime-liquidsoap
+  when: libretime_checkout is changed
 
 - name: create playout working directory
   file:

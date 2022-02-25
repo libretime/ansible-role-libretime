@@ -1,8 +1,9 @@
 ---
-- name: install shared python package
+- name: install shared python package # noqa no-handler
   pip:
     name: "file://{{ libretime_checkout_dest }}/shared"
   notify:
     - restart libretime-analyzer
     - restart libretime-playout
     - restart libretime-liquidsoap
+  when: libretime_checkout is changed
