@@ -44,11 +44,6 @@ Listen {{ libretime_listen_port }}
     ProxyPassReverse /api/v2/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api/v2/
     ProxyPass /api-auth/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api-auth/
     ProxyPassReverse /api-auth/ unix:/run/libretime/api.sock|uwsgi://libretime-api/api-auth/
-
-    Alias /api/static {{ libretime_api_web_root }}
-    <Directory {{ libretime_api_web_root }}>
-        Require all granted
-    </Directory>
 </VirtualHost>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
