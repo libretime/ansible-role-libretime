@@ -33,7 +33,6 @@ libretime_worker_install: true
 # > API
 ########################################################################################
 libretime_api_install: true
-libretime_api_web_root: /usr/share/libretime/api
 
 # > Legacy
 ########################################################################################

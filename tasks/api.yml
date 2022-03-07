@@ -20,23 +20,6 @@
     mode: 0640
   notify: restart libretime-api
 
-- name: create api web root directory
-  file:
-    path: "{{ libretime_api_web_root }}"
-    owner: "{{ libretime_user }}"
-    group: "{{ libretime_user }}"
-    state: directory
-    mode: 0755
-
-- name: generate api files in the web root
-  become: true
-  become_user: "{{ libretime_user }}"
-  command: libretime-api collectstatic --clear --noinput
-  args:
-    creates: "{{ libretime_api_web_root }}/*"
-  environment:
-    LIBRETIME_STATIC_ROOT: "{{ libretime_api_web_root }}"
-
 - import_tasks: _systemd.yml
   vars:
     service_name: libretime-api
