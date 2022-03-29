@@ -5,7 +5,7 @@
 # Custom liquidsoap packages have weird names 'liquidsoap-v1.4.4',
 # reinstalling 'liquidsoap' over it will fail.
 - name: generate dependencies list from {{ packages_path }}
-  command:
+  ansible.builtin.command:
     cmd: >
       {{ libretime_checkout_dest }}/tools/packages.py --format=line
       {{ ansible_distribution_release }}
@@ -16,6 +16,6 @@
   changed_when: false
 
 - name: install dependencies from {{ packages_path }}
-  apt:
+  ansible.builtin.apt:
     state: present
     name: "{{ dependencies.stdout.split(' ') }}"

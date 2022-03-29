@@ -1,11 +1,11 @@
 ---
 - name: install icecast
-  apt:
+  ansible.builtin.apt:
     state: present
     name: [icecast2, python3-lxml]
 
 - name: start and enable icecast systemd service
-  systemd:
+  ansible.builtin.systemd:
     name: icecast2.service
     state: started
     enabled: true

@@ -1,6 +1,6 @@
 ---
 - name: install shared python package # noqa no-handler
-  pip:
+  ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/shared"
   notify:
     - restart libretime-analyzer

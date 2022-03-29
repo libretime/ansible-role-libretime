@@ -1,6 +1,6 @@
 ---
 - name: create storage dir
-  file:
+  ansible.builtin.file:
     path: "{{ libretime_storage_dir }}"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"

@@ -1,28 +1,28 @@
 ---
-- import_tasks: _dependencies.yml
+- ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/legacy"
 
 - name: install composer dependencies
-  apt:
+  ansible.builtin.apt:
     state: present
     name: [unzip]
 
 - name: get composer installer signature
-  uri:
+  ansible.builtin.uri:
     url: https://composer.github.io/installer.sig
     return_content: true
   register: composer_installer_signature
 
 - name: download composer installer
-  get_url:
+  ansible.builtin.get_url:
     url: https://getcomposer.org/installer
     dest: /tmp/composer-installer.php
     mode: 0755
     checksum: "sha384:{{ composer_installer_signature.content }}"
 
 - name: run composer installer
-  command: >
+  ansible.builtin.command: >
     php /tmp/composer-installer.php
       --install-dir=/usr/local/bin
       --filename=composer
@@ -30,13 +30,13 @@
     creates: /usr/local/bin/composer
 
 - name: clean legacy web root directory # noqa no-handler
-  file:
+  ansible.builtin.file:
     path: "{{ libretime_legacy_web_root }}"
     state: absent
   when: libretime_checkout is changed
 
 - name: create legacy web root directory # noqa command-instead-of-module
-  file:
+  ansible.builtin.file:
     path: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
@@ -44,7 +44,7 @@
     mode: 0755
 
 - name: copy legacy files in the web root
-  copy:
+  ansible.builtin.copy:
     src: "{{ libretime_checkout_dest }}/legacy/"
     dest: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
@@ -54,12 +54,12 @@
 - name: build legacy
   become: true
   become_user: "{{ libretime_user }}"
-  command: make -C {{ libretime_legacy_web_root }} build
+  ansible.builtin.command: make -C {{ libretime_legacy_web_root }} build
   args:
     creates: "{{ libretime_legacy_web_root }}/vendor"
 
 - name: copy VERSION file in the web root
-  copy:
+  ansible.builtin.copy:
     src: "{{ libretime_checkout_dest }}/VERSION"
     dest: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
@@ -67,7 +67,7 @@
     remote_src: true
 
 - name: deploy apache2 conf
-  template:
+  ansible.builtin.template:
     src: apache/libretime.conf.j2
     dest: /etc/apache2/sites-available/libretime.conf
     owner: root
@@ -77,14 +77,14 @@
   notify: restart apache2
 
 - name: enable apache2 conf
-  file:
+  ansible.builtin.file:
     src: /etc/apache2/sites-available/libretime.conf
     dest: /etc/apache2/sites-enabled/libretime.conf
     state: link
   notify: restart apache2
 
 - name: deploy legacy logrotate config
-  template:
+  ansible.builtin.template:
     src: logrotate/libretime-legacy.conf.j2
     dest: /etc/logrotate.d/libretime-legacy
     owner: root

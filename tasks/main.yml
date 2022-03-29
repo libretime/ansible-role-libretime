@@ -1,20 +1,20 @@
 ---
 - name: include distribution specific vars
-  include_vars: "{{ ansible_distribution_release }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_distribution_release }}.yml"
 
 - name: exploding root_url
-  set_fact:
+  ansible.builtin.set_fact:
     root_url_split: "{{ libretime_root_url | urlsplit }}"
 
 - name: handling required fields for root_url
-  set_fact:
+  ansible.builtin.set_fact:
     root_url_scheme: "{{ root_url_split.scheme }}"
     root_url_host: "{{ root_url_split.hostname }}"
     root_url_port: "{{ root_url_split.port | default(443 if root_url_split.scheme == 'https' else 80, true) }}"
     root_url_path: "{{ root_url_split.path | regex_replace('\\/$', '') }}/"
 
 - name: validate root_url
-  assert:
+  ansible.builtin.assert:
     that:
       - root_url_scheme in ('http', 'https')
       - root_url_host | length > 0
@@ -23,45 +23,45 @@
     fail_msg: libretime_root_url '{{ libretime_root_url }}' is invalid!
 
 - name: install dependencies
-  apt:
+  ansible.builtin.apt:
     state: present
     name: [git, make]
     update_cache: true
 
 - name: checkout repository
-  git:
+  ansible.builtin.git:
     repo: "{{ libretime_checkout_url }}"
     dest: "{{ libretime_checkout_dest }}"
     version: "{{ libretime_checkout_version }}"
   register: libretime_checkout
 
 - name: clean checkout # noqa no-handler command-instead-of-module
-  command: git clean -xdf
+  ansible.builtin.command: git clean -xdf
   args:
     chdir: "{{ libretime_checkout_dest }}"
   when: libretime_checkout is changed
 
 - name: build VERSION file
-  command: make -C {{ libretime_checkout_dest }} VERSION
+  ansible.builtin.command: make -C {{ libretime_checkout_dest }} VERSION
   args:
     creates: "{{ libretime_checkout_dest }}/VERSION"
 
-- import_tasks: postgresql.yml
+- ansible.builtin.import_tasks: postgresql.yml
   when: libretime_postgresql_install
 
-- import_tasks: rabbitmq.yml
+- ansible.builtin.import_tasks: rabbitmq.yml
   when: libretime_rabbitmq_install
 
-- import_tasks: icecast.yml
+- ansible.builtin.import_tasks: icecast.yml
   when: libretime_icecast_install
 
-- import_tasks: liquidsoap.yml
+- ansible.builtin.import_tasks: liquidsoap.yml
   when: libretime_liquidsoap_install
 
-- import_tasks: apache.yml
+- ansible.builtin.import_tasks: apache.yml
 
 - name: create {{ libretime_user }} user
-  user:
+  ansible.builtin.user:
     name: "{{ libretime_user }}"
     system: true
     createhome: false
@@ -69,7 +69,7 @@
   when: libretime_user != __default_web_user
 
 - name: create directories
-  file:
+  ansible.builtin.file:
     path: "{{ item.path }}"
     owner: "{{ item.owner }}"
     group: "{{ item.group }}"
@@ -88,7 +88,7 @@
       group: "{{ libretime_user }}"
 
 - name: deploy configuration file
-  template:
+  ansible.builtin.template:
     src: libretime/config.ini.j2
     dest: "{{ libretime_config_filepath }}"
     owner: "{{ libretime_user }}"
@@ -103,38 +103,38 @@
     - restart libretime-worker
 
 - name: install python3
-  apt:
+  ansible.builtin.apt:
     state: present
     name: [python3, python3-pip]
 
-- import_tasks: shared.yml
+- ansible.builtin.import_tasks: shared.yml
   when: >
     libretime_api_install or
     libretime_worker_install or
     libretime_analyzer_install or
     libretime_playout_install
 
-- import_tasks: api_client.yml
+- ansible.builtin.import_tasks: api_client.yml
   when: >
     libretime_api_install or
     libretime_worker_install or
     libretime_analyzer_install or
     libretime_playout_install
 
-- import_tasks: api.yml
+- ansible.builtin.import_tasks: api.yml
   when: libretime_api_install
 
-- import_tasks: worker.yml
+- ansible.builtin.import_tasks: worker.yml
   when: libretime_worker_install
 
-- import_tasks: analyzer.yml
+- ansible.builtin.import_tasks: analyzer.yml
   when: libretime_analyzer_install
 
-- import_tasks: playout.yml
+- ansible.builtin.import_tasks: playout.yml
   when: libretime_playout_install
 
-- import_tasks: legacy.yml
+- ansible.builtin.import_tasks: legacy.yml
   when: libretime_legacy_install
 
-- import_tasks: setup.yml
+- ansible.builtin.import_tasks: setup.yml
   when: libretime_setup

@@ -1,6 +1,6 @@
 ---
 - name: install rabbitmq
-  apt:
+  ansible.builtin.apt:
     state: present
     name: [rabbitmq-server]
 

@@ -1,6 +1,6 @@
 ---
 - name: install postgresql
-  apt:
+  ansible.builtin.apt:
     state: present
     name: [postgresql, postgresql-client, python3-psycopg2]
 
@@ -36,5 +36,5 @@
       register: database_schema_table
 
     - name: set database_migrated
-      set_fact:
+      ansible.builtin.set_fact:
         database_migrated: "{{ database_schema_table.query_result[0].exists }}"

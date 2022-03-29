@@ -1,11 +1,11 @@
 ---
 - name: install apache2
-  apt:
+  ansible.builtin.apt:
     name: [apache2]
     state: present
 
 - name: disable default vhost
-  file:
+  ansible.builtin.file:
     path: /etc/apache2/sites-enabled/000-default.conf
     state: absent
   notify: restart apache2
@@ -21,7 +21,7 @@
     - proxy_uwsgi
 
 - name: enable/start apache2
-  systemd:
+  ansible.builtin.systemd:
     name: apache2
     state: started
     enabled: true

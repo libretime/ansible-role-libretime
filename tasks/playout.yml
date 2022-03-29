@@ -1,10 +1,10 @@
 ---
-- import_tasks: _dependencies.yml
+- ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/playout"
 
 - name: install playout python package # noqa no-handler
-  pip:
+  ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/playout"
   notify:
     - restart libretime-playout
@@ -12,7 +12,7 @@
   when: libretime_checkout is changed
 
 - name: create playout working directory
-  file:
+  ansible.builtin.file:
     path: "{{ libretime_home }}/playout"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
@@ -20,19 +20,19 @@
     mode: 0755
 
 - name: deploy liquidsoap logrotate config
-  template:
+  ansible.builtin.template:
     src: logrotate/libretime-liquidsoap.conf.j2
     dest: /etc/logrotate.d/libretime-liquidsoap
     owner: root
     group: root
     mode: 0644
 
-- import_tasks: _systemd.yml
+- ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-playout
   notify: restart libretime-playout
 
-- import_tasks: _systemd.yml
+- ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-liquidsoap
   notify: restart libretime-liquidsoap

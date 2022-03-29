@@ -1,23 +1,23 @@
 ---
-- import_tasks: _dependencies.yml
+- ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/analyzer"
 
 - name: install analyzer python package # noqa no-handler
-  pip:
+  ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/analyzer"
   notify: restart libretime-analyzer
   when: libretime_checkout is changed
 
 - name: create analyzer working directory
-  file:
+  ansible.builtin.file:
     path: "{{ libretime_home }}/analyzer"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
     state: directory
     mode: 0755
 
-- import_tasks: _systemd.yml
+- ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-analyzer
   notify: restart libretime-analyzer

@@ -2,17 +2,17 @@
 # The order of the handlers matters
 
 - name: restart apache2
-  systemd:
+  ansible.builtin.systemd:
     name: apache2
     state: restarted
 
 - name: restart icecast
-  systemd:
+  ansible.builtin.systemd:
     name: icecast2
     state: restarted
 
 - name: restart libretime-api
-  systemd:
+  ansible.builtin.systemd:
     name: libretime-api
     state: restarted
   when: libretime_allow_restart
@@ -20,28 +20,28 @@
 - name: run libretime-api database migration
   become: true
   become_user: "{{ libretime_user }}"
-  command: libretime-api migrate
+  ansible.builtin.command: libretime-api migrate
 
 - name: restart libretime-playout
-  systemd:
+  ansible.builtin.systemd:
     name: libretime-playout
     state: restarted
   when: libretime_allow_restart
 
 - name: restart libretime-liquidsoap
-  systemd:
+  ansible.builtin.systemd:
     name: libretime-liquidsoap
     state: restarted
   when: libretime_allow_restart
 
 - name: restart libretime-worker
-  systemd:
+  ansible.builtin.systemd:
     name: libretime-worker
     state: restarted
   when: libretime_allow_restart
 
 - name: restart libretime-analyzer
-  systemd:
+  ansible.builtin.systemd:
     name: libretime-analyzer
     state: restarted
   when: libretime_allow_restart

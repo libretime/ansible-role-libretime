@@ -6,13 +6,13 @@
 
   tasks:
     - name: bypass deb.debian.org repository
-      replace:
+      ansible.builtin.replace:
         path: /etc/apt/sources.list
         regexp: 'http:\/\/deb\.debian\.org'
         replace: "http://cdn-fastly.deb.debian.org"
 
     - name: install dependencies
-      apt:
+      ansible.builtin.apt:
         state: present
         name:
           - git
@@ -22,7 +22,7 @@
         update_cache: true
 
     - name: include libretime
-      include_role:
+      ansible.builtin.include_role:
         name: ansible-role-libretime
       vars:
         libretime_root_url: http://{{ ansible_default_ipv4.address }}:{{ libretime_listen_port }}/
