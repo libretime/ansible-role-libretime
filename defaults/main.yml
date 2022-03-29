@@ -6,7 +6,7 @@ libretime_user: www-data
 libretime_listen_port: 80
 libretime_max_upload_size: 512M
 
-libretime_checkout_url: https://github.com/libretime/libretime.git
+libretime_checkout_url: https://github.com/libretime/libretime
 libretime_checkout_version: main
 libretime_checkout_dest: /opt/libretime
 
