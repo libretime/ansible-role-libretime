@@ -11,7 +11,7 @@
       {{ ansible_distribution_release }}
       {{ packages_path }}
       {{ packages_args | default('') }}
-      {{ '--exclude=liquidsoap' if libretime_liquidsoap_package_url else '' }}
+      {{ '--exclude=liquidsoap' if libretime_liquidsoap_package_url is defined else '' }}
   register: dependencies
   changed_when: false
 
