@@ -25,7 +25,7 @@
 - name: install dependencies
   ansible.builtin.apt:
     state: present
-    name: [git, make]
+    name: [git, make, gettext]
     update_cache: true
 
 - name: checkout repository

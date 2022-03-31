@@ -1,17 +1,42 @@
----
-- hosts: libretime
-  become: true
-  vars:
-    libretime_allow_restart: false
+- hosts: localhost
+  tasks:
+    - name: create server
+      hcloud_server:
+        name: libretime-testing
+        server_type: cx11
+        image: debian-11
+        location: nbg1
+        ssh_keys:
+          - ci@github
+          - jo@jofix
+        state: present
+      register: server_status
 
-    libretime_root_url: https://station.radio.org
-    libretime_legacy_api_key: some_secret_generated_key!
+    - when: server_status is changed
+      pause:
+        seconds: 10
 
-    libretime_icecast_admin_password: some_secret_generated_key!
-    libretime_icecast_source_password: some_secret_generated_key!
-    libretime_icecast_relay_password: some_secret_generated_key!
+    - meta: refresh_inventory
 
-    libretime_postgresql_password: some_secret_generated_key!
-    libretime_rabbitmq_password: some_secret_generated_key!
-  roles:
-    - libretime
+- hosts: libretime-testing
+  remote_user: root
+  tasks:
+    - name: wait for target
+      wait_for_connection:
+      register: connected
+      until: connected is not failed
+      retries: 3
+      delay: 10
+
+    - import_role:
+        name: libretime
+      vars:
+        libretime_root_url: http://{{ ansible_default_ipv4.address }}/
+        libretime_legacy_api_key: 046ff49158b000ca97c60c2be65734e3
+
+        libretime_icecast_admin_password: fb09f7acdc107770805aa85fd5d3f6d7
+        libretime_icecast_source_password: c3e452528835d81e061bc6db777bbc24
+        libretime_icecast_relay_password: 9484919e5674fce31bcb7ed9425de005
+
+        libretime_postgresql_password: a124f5646f1334c4429c86638001e392
+        libretime_rabbitmq_password: 38e4121618a1fb890bf93fa3ca6b4380
