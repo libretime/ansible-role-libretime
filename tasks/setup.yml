@@ -77,9 +77,9 @@
           INSERT INTO cc_pref (keystr, valstr)
           VALUES ('default_icecast_password', %s )
         positional_args:
-          - "{{ libretime_icecast_admin_password }}"
+          - "{{ libretime_icecast_source_password }}"
 
-    - name: set initial icecast passwords
+    - name: set initial icecast admin passwords
       community.postgresql.postgresql_query:
         db: "{{ libretime_postgresql_name }}"
         login_host: "{{ libretime_postgresql_host }}"
@@ -89,9 +89,26 @@
         query: >
           UPDATE cc_stream_setting
           SET value = %s
-          WHERE keyname = '{{ item }}'
+          WHERE keyname = %s
         positional_args:
           - "{{ libretime_icecast_admin_password }}"
-      with_items: "{{ ['s1', 's2', 's3', 's4'] | product(['pass', 'admin_pass']) | map('join', '_') }}"
+          - "{{ item }}_admin_pass"
+      with_items: ["s1", "s2", "s3", "s4"]
+
+    - name: set initial icecast source passwords
+      community.postgresql.postgresql_query:
+        db: "{{ libretime_postgresql_name }}"
+        login_host: "{{ libretime_postgresql_host }}"
+        login_port: "{{ libretime_postgresql_port }}"
+        login_user: "{{ libretime_postgresql_user }}"
+        login_password: "{{ libretime_postgresql_password }}"
+        query: >
+          UPDATE cc_stream_setting
+          SET value = %s
+          WHERE keyname = %s
+        positional_args:
+          - "{{ libretime_icecast_source_password }}"
+          - "{{ item }}_pass"
+      with_items: ["s1", "s2", "s3", "s4"]
 
   when: not database_migrated and libretime_postgresql_restore_dump is not defined
