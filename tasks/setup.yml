@@ -26,14 +26,13 @@
   become_user: postgres
   block:
     - name: initial database schema
-      community.postgresql.postgresql_query:
+      community.postgresql.postgresql_script:
         db: "{{ libretime_postgresql_name }}"
         login_host: "{{ libretime_postgresql_host }}"
         login_port: "{{ libretime_postgresql_port }}"
         login_user: "{{ libretime_postgresql_user }}"
         login_password: "{{ libretime_postgresql_password }}"
-        path_to_script: "{{ libretime_checkout_dest }}/legacy/build/sql/{{ item }}"
-        as_single_query: true
+        path: "{{ libretime_checkout_dest }}/legacy/build/sql/{{ item }}"
         encoding: UTF-8
       with_items:
         - schema.sql
