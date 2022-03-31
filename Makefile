@@ -10,7 +10,7 @@ venv: $(VENV)
 $(VENV):
 	test -f $(VENV)/bin/activate || python3 -m venv $(VENV)
 	source $(VENV)/bin/activate
-	pip install --upgrade pip
+	pip install --upgrade pip wheel
 
 install: $(VENV)
 	source $(VENV)/bin/activate
