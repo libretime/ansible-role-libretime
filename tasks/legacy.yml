@@ -1,7 +1,22 @@
 ---
+- name: install php-fpm
+  ansible.builtin.apt:
+    state: present
+    name: "php{{ __php_default_version }}-fpm"
+
 - ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/legacy"
+    packages_args: --exclude apache
+
+- name: deploy legacy php-fpm config
+  ansible.builtin.template:
+    src: php-fpm/libretime-legacy.conf.j2
+    dest: "/etc/php/{{ __php_default_version }}/fpm/pool.d/libretime-legacy.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
 
 - name: install composer dependencies
   ansible.builtin.apt:
@@ -65,23 +80,6 @@
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
     remote_src: true
-
-- name: deploy apache2 conf
-  ansible.builtin.template:
-    src: apache/libretime.conf.j2
-    dest: /etc/apache2/sites-available/libretime.conf
-    owner: root
-    group: root
-    mode: 0644
-    backup: true
-  notify: restart apache2
-
-- name: enable apache2 conf
-  ansible.builtin.file:
-    src: /etc/apache2/sites-available/libretime.conf
-    dest: /etc/apache2/sites-enabled/libretime.conf
-    state: link
-  notify: restart apache2
 
 - name: deploy legacy logrotate config
   ansible.builtin.template:

@@ -58,7 +58,7 @@
 - ansible.builtin.import_tasks: liquidsoap.yml
   when: libretime_liquidsoap_install
 
-- ansible.builtin.import_tasks: apache.yml
+- ansible.builtin.import_tasks: nginx.yml
 
 - name: create {{ libretime_user }} user
   ansible.builtin.user:
