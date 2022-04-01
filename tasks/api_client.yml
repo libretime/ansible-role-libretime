@@ -1,9 +1,7 @@
 ---
-- name: install api_client python package # noqa no-handler
+- name: install api-client python package # noqa no-handler
   ansible.builtin.pip:
-    name: "file://{{ libretime_checkout_dest }}/api_client"
+    name: "file://{{ libretime_checkout_dest }}/api-client"
   notify:
-    - restart libretime-analyzer
     - restart libretime-playout
-    - restart libretime-liquidsoap
   when: libretime_checkout is changed
