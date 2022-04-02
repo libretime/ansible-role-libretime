@@ -1,16 +1,22 @@
 [Unit]
 Description=LibreTime API Service
+Requires=libretime-api.socket
 
 [Service]
 Type=notify
-NotifyAccess=all
-KillSignal=SIGQUIT
-RuntimeDirectory=libretime
+KillMode=mixed
+PrivateTmp=true
 
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
+WorkingDirectory={{ libretime_home }}/api
 
-ExecStart=/usr/bin/uwsgi {{ libretime_config_dir }}/api.ini
+ExecStart=/usr/local/bin/gunicorn \
+        --workers 4 \
+        --log-file - \
+        --bind unix:/run/libretime-api.sock \
+        libretime_api.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
 Restart=always
 User={{ libretime_user }}
 Group={{ libretime_user }}
