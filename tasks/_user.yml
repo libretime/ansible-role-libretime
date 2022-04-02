@@ -1,9 +1,0 @@
----
-# user_name: required
-
-- name: create {{ user_name }} system user
-  ansible.builtin.user:
-    name: "{{ user_name }}"
-    shell: /usr/sbin/nologin
-    system: true
-    createhome: false
