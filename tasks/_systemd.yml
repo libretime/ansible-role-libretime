@@ -1,12 +1,11 @@
 ---
 # service_name: required
-# service_dest:
 # service_enabled: true
 
-- name: deploy {{ service_name }} systemd service
+- name: deploy {{ service_name }} systemd unit
   ansible.builtin.template:
-    src: systemd/{{ service_name }}.service.j2
-    dest: /etc/systemd/system/{{ service_dest | default(service_name) }}.service
+    src: systemd/{{ service_name }}.j2
+    dest: /etc/systemd/system/{{ service_name }}
     owner: root
     group: root
     mode: 0644
@@ -17,7 +16,7 @@
     daemon_reload: true
   when: systemd is changed
 
-- name: enable {{ service_name }} systemd service
+- name: enable {{ service_name }} systemd unit
   ansible.builtin.systemd:
-    name: "{{ service_name }}.service"
+    name: "{{ service_name }}"
     enabled: "{{ service_enabled | default(true) }}"
