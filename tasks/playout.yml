@@ -29,10 +29,10 @@
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
-    service_name: libretime-playout
+    service_name: libretime-playout.service
   notify: restart libretime-playout
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
-    service_name: libretime-liquidsoap
+    service_name: libretime-liquidsoap.service
   notify: restart libretime-liquidsoap
