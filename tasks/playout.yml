@@ -11,13 +11,13 @@
     - restart libretime-liquidsoap
   when: libretime_checkout is changed
 
-- name: create playout working directory
+- name: create playout home directory
   ansible.builtin.file:
     path: "{{ libretime_home }}/playout"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
     state: directory
-    mode: 0755
+    recurse: true
 
 - name: deploy liquidsoap logrotate config
   ansible.builtin.template:

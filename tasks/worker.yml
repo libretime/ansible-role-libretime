@@ -5,12 +5,13 @@
   notify: restart libretime-worker
   when: libretime_checkout is changed
 
-- name: create worker working directory
+- name: create worker home directory
   ansible.builtin.file:
     path: "{{ libretime_home }}/worker"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
     state: directory
+    recurse: true
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:

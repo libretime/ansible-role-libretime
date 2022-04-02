@@ -74,7 +74,7 @@
     owner: "{{ item.owner }}"
     group: "{{ item.group }}"
     state: directory
-    mode: 0755
+    recurse: true
   with_items:
     - path: "{{ libretime_home }}"
       owner: "{{ libretime_user }}"
