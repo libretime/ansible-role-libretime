@@ -2,6 +2,12 @@
 - ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/api"
+    packages_args: --exclude django
+
+# TODO: install from system packages
+- name: install gunicorn python packages
+  ansible.builtin.pip:
+    name: [gunicorn]
 
 - name: install api python package # noqa no-handler
   ansible.builtin.pip:
@@ -11,14 +17,20 @@
     - run libretime-api database migration
   when: libretime_checkout is changed
 
-- name: deploy api config
-  ansible.builtin.template:
-    src: uwsgi/api.ini.j2
-    dest: "{{ libretime_config_dir }}/api.ini"
+- name: create api home directory
+  ansible.builtin.file:
+    path: "{{ libretime_home }}/api"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
-    mode: 0640
-  notify: restart libretime-api
+    state: directory
+    recurse: true
+
+- ansible.builtin.import_tasks: _systemd.yml
+  vars:
+    service_name: libretime-api.socket
+  notify:
+    - restart libretime-api
+    - restart nginx
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:

@@ -33,13 +33,9 @@ server {
     try_files $uri $uri/ /index.php$is_args$args;
   }
 
-  location /api/v2 {
-    include uwsgi_params;
-    uwsgi_pass unix:/run/libretime/api.sock;
-  }
-
-  location /api-auth {
-    include uwsgi_params;
-    uwsgi_pass unix:/run/libretime/api.sock;
+  location ~ ^/(api/v2|api-auth) {
+    include proxy_params;
+    proxy_redirect off;
+    proxy_pass http://unix:/run/libretime-api.sock;
   }
 }
