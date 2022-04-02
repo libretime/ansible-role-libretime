@@ -4,6 +4,9 @@ server {
 
   server_name {{ libretime_root_url | urlsplit('hostname') }};
 
+  access_log /var/log/nginx/libretime.access.log;
+  error_log /var/log/nginx/libretime.error.log;
+
   root {{ libretime_legacy_web_root }}/public;
 
   index index.php index.html index.htm;
