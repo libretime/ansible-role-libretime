@@ -13,9 +13,10 @@ WorkingDirectory={{ libretime_home }}/api
 
 ExecStart=/usr/local/bin/gunicorn \
         --workers 4 \
+        --worker-class uvicorn.workers.UvicornWorker \
         --log-file - \
         --bind unix:/run/libretime-api.sock \
-        libretime_api.wsgi
+        libretime_api.asgi
 ExecReload=/bin/kill -s HUP $MAINPID
 Restart=always
 User={{ libretime_user }}

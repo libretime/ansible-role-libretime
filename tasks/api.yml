@@ -7,7 +7,7 @@
 # TODO: install from system packages
 - name: install gunicorn python packages
   ansible.builtin.pip:
-    name: [gunicorn]
+    name: [gunicorn, uvicorn]
 
 - name: install api python package # noqa no-handler
   ansible.builtin.pip:
