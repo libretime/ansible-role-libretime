@@ -4,6 +4,9 @@ driver:
   provider:
     name: libvirt
 
+dependency:
+  name: galaxy
+
 platforms:
   - name: bullseye
     box: debian/bullseye64

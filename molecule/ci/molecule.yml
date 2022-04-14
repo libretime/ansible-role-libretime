@@ -1,0 +1,32 @@
+---
+driver:
+  name: hetznercloud
+
+dependency:
+  name: galaxy
+
+platforms:
+  - name: bionic
+    server_type: cx11
+    image: ubuntu-18.04
+
+  - name: focal
+    server_type: cx11
+    image: ubuntu-20.04
+
+  - name: buster
+    server_type: cx11
+    image: debian-10
+
+  - name: bullseye
+    server_type: cx11
+    image: debian-11
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../converge.yml
+
+verifier:
+  name: testinfra
+  directory: ../tests

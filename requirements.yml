@@ -3,3 +3,4 @@ collections:
   - name: community.general
   - name: community.postgresql
   - name: community.rabbitmq
+  - name: hetzner.hcloud
