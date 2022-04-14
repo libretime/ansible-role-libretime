@@ -18,6 +18,7 @@ install: $(VENV)
 	ansible-galaxy install -r requirements.yml
 
 lint: $(VENV)
+	source $(VENV)/bin/activate
 	ansible-lint --force-color
 
 clean:

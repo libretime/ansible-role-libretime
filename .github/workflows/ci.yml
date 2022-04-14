@@ -34,5 +34,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - run: pip3 install ansible ansible-lint
-      - run: ansible-lint --force-color
+      - run: make install
+      - run: make lint
