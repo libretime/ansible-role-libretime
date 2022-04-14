@@ -4,6 +4,9 @@ driver:
   provider:
     name: libvirt
 
+dependency:
+  name: galaxy
+
 platforms:
   - name: bullseye
     box: debian/bullseye64
@@ -23,6 +26,9 @@ platforms:
 
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../converge.yml
 
 verifier:
   name: testinfra
+  directory: ../tests

@@ -5,6 +5,7 @@ ansible-lint>=6.0.0
 ## Dev
 black
 molecule
+molecule-hetznercloud
 molecule-vagrant
 pylint
 pytest
