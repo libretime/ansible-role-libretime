@@ -1,5 +1,6 @@
 ---
 collections:
+  - name: community.crypto
   - name: community.general
   - name: community.postgresql
   - name: community.rabbitmq
