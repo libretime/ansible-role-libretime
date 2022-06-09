@@ -4,7 +4,7 @@
 
 - name: exploding root_url
   ansible.builtin.set_fact:
-    root_url_split: "{{ libretime_root_url | urlsplit }}"
+    root_url_split: "{{ libretime_public_url | urlsplit }}"
 
 - name: handling required fields for root_url
   ansible.builtin.set_fact:
@@ -20,7 +20,7 @@
       - root_url_host | length > 0
       - root_url_port | length > 0
       - root_url_path | length > 0
-    fail_msg: libretime_root_url '{{ libretime_root_url }}' is invalid!
+    fail_msg: libretime_public_url '{{ libretime_public_url }}' is invalid!
 
 - name: install dependencies
   ansible.builtin.apt:

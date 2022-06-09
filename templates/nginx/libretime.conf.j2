@@ -2,7 +2,7 @@ server {
   listen {{ libretime_listen_port }};
   listen [::]:{{ libretime_listen_port }};
 
-  server_name {{ libretime_root_url | urlsplit('hostname') }};
+  server_name {{ libretime_public_url | urlsplit('hostname') }};
 
   access_log /var/log/nginx/libretime.access.log;
   error_log /var/log/nginx/libretime.error.log;

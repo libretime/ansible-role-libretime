@@ -1,7 +1,7 @@
 ---
 libretime_allow_restart: true
 
-libretime_root_url: "http://localhost:{{ libretime_listen_port }}/"
+libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_user: libretime
 libretime_listen_port: 80
 libretime_max_upload_size: 512M

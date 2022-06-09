@@ -25,5 +25,5 @@
       ansible.builtin.include_role:
         name: ansible-role-libretime
       vars:
-        libretime_root_url: http://{{ ansible_default_ipv4.address }}:{{ libretime_listen_port }}/
+        libretime_public_url: http://{{ ansible_default_ipv4.address }}:{{ libretime_listen_port }}/
         libretime_listen_port: 8888

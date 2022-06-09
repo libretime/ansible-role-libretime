@@ -4,7 +4,7 @@
   vars:
     libretime_allow_restart: false
 
-    libretime_root_url: https://station.radio.org
+    libretime_public_url: https://station.radio.org
     libretime_legacy_api_key: some_secret_generated_key!
 
     libretime_icecast_admin_password: some_secret_generated_key!

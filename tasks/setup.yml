@@ -63,7 +63,7 @@
           INSERT INTO cc_pref (keystr, valstr)
           VALUES ('allowed_cors_urls', %s )
         positional_args:
-          - "{{ libretime_root_url }}"
+          - "{{ libretime_public_url }}"
 
     - name: set default icecast password
       community.postgresql.postgresql_query:
