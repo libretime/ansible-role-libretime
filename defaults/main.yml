@@ -12,7 +12,7 @@ libretime_checkout_dest: /opt/libretime
 
 libretime_home: /var/lib/libretime
 libretime_log_dir: /var/log/libretime
-libretime_config_dir: /etc/airtime
+libretime_config_dir: /etc/libretime
 libretime_config_filepath: "{{ libretime_config_dir }}/airtime.conf"
 libretime_storage_dir: /srv/libretime
 
