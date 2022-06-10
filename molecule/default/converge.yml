@@ -11,14 +11,16 @@
         regexp: 'http:\/\/deb\.debian\.org'
         replace: "http://cdn-fastly.deb.debian.org"
 
+    - name: setup apt proxy
+      ansible.builtin.apt:
+        state: present
+        name: auto-apt-proxy
+        update_cache: true
+
     - name: install dependencies
       ansible.builtin.apt:
         state: present
-        name:
-          - git
-          - make
-          - auto-apt-proxy
-          - acl # Is this only required while testing ?
+        name: [git, make, acl] # Is acl only required while testing ?
         update_cache: true
 
     - name: include libretime
