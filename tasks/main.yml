@@ -136,5 +136,9 @@
 - ansible.builtin.import_tasks: legacy.yml
   when: libretime_legacy_install
 
+- ansible.builtin.import_tasks: _systemd.yml
+  vars:
+    service_name: libretime.target
+
 - ansible.builtin.import_tasks: setup.yml
   when: libretime_setup
