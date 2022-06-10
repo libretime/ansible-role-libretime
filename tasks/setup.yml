@@ -8,19 +8,6 @@
     recurse: true
     mode: 0755
 
-- name: restore postgresql dump
-  become: true
-  become_user: postgres
-  community.postgresql.postgresql_db:
-    db: "{{ libretime_postgresql_name }}"
-    login_host: "{{ libretime_postgresql_host }}"
-    login_port: "{{ libretime_postgresql_port }}"
-    login_user: "{{ libretime_postgresql_user }}"
-    login_password: "{{ libretime_postgresql_password }}"
-    state: restore
-    target: "{{ libretime_postgresql_restore_dump }}"
-  when: not database_migrated and libretime_postgresql_restore_dump is defined
-
 - name: run legacy database migration
   become: true
   become_user: postgres
