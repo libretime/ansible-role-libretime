@@ -22,11 +22,6 @@
     state: restarted
   when: libretime_allow_restart
 
-- name: run libretime-api database migration
-  become: true
-  become_user: "{{ libretime_user }}"
-  ansible.builtin.command: libretime-api migrate
-
 - name: restart libretime-playout
   ansible.builtin.systemd:
     name: libretime-playout

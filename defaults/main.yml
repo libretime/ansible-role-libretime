@@ -16,7 +16,7 @@ libretime_config_dir: /etc/libretime
 libretime_config_filepath: "{{ libretime_config_dir }}/config.yml"
 libretime_storage_dir: /srv/libretime
 
-libretime_setup: true
+libretime_migrate: true
 
 # > Analyzer
 ########################################################################################

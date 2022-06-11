@@ -66,6 +66,9 @@
       # TODO: Config dir should not be writable, but liquidsoap writes to this dir.
       owner: "{{ libretime_user }}"
       group: "{{ libretime_user }}"
+    - path: "{{ libretime_storage_dir }}"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
 
 - name: deploy configuration file
   ansible.builtin.template:
@@ -120,5 +123,11 @@
   vars:
     service_name: libretime.target
 
-- ansible.builtin.import_tasks: setup.yml
-  when: libretime_setup
+- name: run database migration
+  become: true
+  become_user: "{{ libretime_user }}"
+  ansible.builtin.command: libretime-api migrate
+  register: migration
+  changed_when: >
+    "No migrations to apply." not in migration.stdout
+  when: libretime_migrate
