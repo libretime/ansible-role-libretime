@@ -19,22 +19,3 @@
         encoding: UTF-8
         template: template0
         owner: "{{ libretime_postgresql_user }}"
-
-    - name: probe database schema table
-      community.postgresql.postgresql_query:
-        db: "{{ libretime_postgresql_name }}"
-        login_host: "{{ libretime_postgresql_host }}"
-        login_port: "{{ libretime_postgresql_port }}"
-        login_user: "{{ libretime_postgresql_user }}"
-        login_password: "{{ libretime_postgresql_password }}"
-        query: >
-          SELECT EXISTS (
-            SELECT FROM information_schema.tables
-            WHERE  table_schema = 'public'
-            AND    table_name   = 'cc_pref'
-          )
-      register: database_schema_table
-
-    - name: set database_migrated
-      ansible.builtin.set_fact:
-        database_migrated: "{{ database_schema_table.query_result[0].exists }}"
