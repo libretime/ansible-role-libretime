@@ -2,7 +2,6 @@
 - ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/api"
-    packages_args: --exclude django
 
 # TODO: install from system packages
 - name: install gunicorn python packages
