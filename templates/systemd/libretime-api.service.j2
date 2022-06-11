@@ -12,7 +12,7 @@ Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 WorkingDirectory={{ libretime_home }}/api
 
-ExecStart=/usr/local/bin/gunicorn \
+ExecStart=/usr/bin/gunicorn \
         --workers 4 \
         --worker-class uvicorn.workers.UvicornWorker \
         --log-file - \

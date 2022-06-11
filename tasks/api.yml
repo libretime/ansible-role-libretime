@@ -4,9 +4,9 @@
     packages_path: "{{ libretime_checkout_dest }}/api"
 
 # TODO: install from system packages
-- name: install gunicorn python packages
+- name: install uvicorn python packages
   ansible.builtin.pip:
-    name: [gunicorn, uvicorn]
+    name: [uvicorn]
 
 - name: install api python package # noqa no-handler
   ansible.builtin.pip:
