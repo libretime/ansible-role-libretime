@@ -43,7 +43,7 @@
         mode: 0755
         checksum: "sha384:{{ composer_installer_signature.content }}"
 
-    - name: run composer installer
+    - name: run composer installer # noqa no-changed-when
       ansible.builtin.command: >
         php /tmp/composer-installer.php
           --install-dir=/usr/local/bin
