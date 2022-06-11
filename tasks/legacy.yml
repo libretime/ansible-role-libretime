@@ -18,31 +18,38 @@
     mode: 0644
   notify: restart php-fpm
 
-- name: install composer dependencies
-  ansible.builtin.apt:
-    state: present
-    name: [unzip]
+- name: assert composer is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/composer
+  register: composer
 
-- name: get composer installer signature
-  ansible.builtin.uri:
-    url: https://composer.github.io/installer.sig
-    return_content: true
-  register: composer_installer_signature
+- name: install composer
+  block:
+    - name: install composer dependencies
+      ansible.builtin.apt:
+        state: present
+        name: [unzip]
 
-- name: download composer installer
-  ansible.builtin.get_url:
-    url: https://getcomposer.org/installer
-    dest: /tmp/composer-installer.php
-    mode: 0755
-    checksum: "sha384:{{ composer_installer_signature.content }}"
+    - name: get composer installer signature
+      ansible.builtin.uri:
+        url: https://composer.github.io/installer.sig
+        return_content: true
+      register: composer_installer_signature
 
-- name: run composer installer
-  ansible.builtin.command: >
-    php /tmp/composer-installer.php
-      --install-dir=/usr/local/bin
-      --filename=composer
-  args:
-    creates: /usr/local/bin/composer
+    - name: download composer installer
+      ansible.builtin.get_url:
+        url: https://getcomposer.org/installer
+        dest: /tmp/composer-installer.php
+        mode: 0755
+        checksum: "sha384:{{ composer_installer_signature.content }}"
+
+    - name: run composer installer
+      ansible.builtin.command: >
+        php /tmp/composer-installer.php
+          --install-dir=/usr/local/bin
+          --filename=composer
+
+  when: not composer.stat.exists or not composer.stat.executable
 
 - name: clean legacy web root directory # noqa no-handler
   ansible.builtin.file:
