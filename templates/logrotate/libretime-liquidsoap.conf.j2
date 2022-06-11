@@ -1,4 +1,5 @@
 {{ libretime_log_dir }}/liquidsoap.log {
+  su {{ libretime_user }} {{ libretime_user }}
   compress
   rotate 10
   size 1000k
