@@ -3,11 +3,6 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/api"
 
-# TODO: install from system packages
-- name: install uvicorn python packages
-  ansible.builtin.pip:
-    name: [uvicorn]
-
 - name: install api python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/api"
