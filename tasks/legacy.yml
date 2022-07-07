@@ -1,13 +1,7 @@
 ---
-- name: install php-fpm
-  ansible.builtin.apt:
-    state: present
-    name: "php{{ __php_default_version }}-fpm"
-
 - ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/legacy"
-    packages_args: --exclude apache
 
 - name: deploy legacy php-fpm config
   ansible.builtin.template:
