@@ -1,5 +1,6 @@
 ---
 libretime_allow_restart: true
+libretime_migrate: true
 
 libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_user: libretime
@@ -15,8 +16,6 @@ libretime_log_dir: /var/log/libretime
 libretime_config_dir: /etc/libretime
 libretime_config_filepath: "{{ libretime_config_dir }}/config.yml"
 libretime_storage_dir: /srv/libretime
-
-libretime_migrate: true
 
 # > Analyzer
 ########################################################################################
