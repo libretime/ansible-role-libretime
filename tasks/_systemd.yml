@@ -5,7 +5,7 @@
 - name: deploy {{ service_name }} systemd unit
   ansible.builtin.template:
     src: systemd/{{ service_name }}.j2
-    dest: /etc/systemd/system/{{ service_name }}
+    dest: /usr/lib/systemd/system/{{ service_name }}
     owner: root
     group: root
     mode: 0644
