@@ -1,6 +1,27 @@
 ---
 libretime_allow_restart: true
 libretime_migrate: true
+libretime_config_raw: |
+  general:
+    public_url: {{ libretime_public_url }}
+    api_key: {{ libretime_legacy_api_key }}
+
+  storage:
+    path: {{ libretime_storage_dir }}
+
+  database:
+    host: {{ libretime_postgresql_host }}
+    port: {{ libretime_postgresql_port }}
+    name: {{ libretime_postgresql_name }}
+    user: {{ libretime_postgresql_user }}
+    password: {{ libretime_postgresql_password }}
+
+  rabbitmq:
+    host: {{ libretime_rabbitmq_host }}
+    port: {{ libretime_rabbitmq_port }}
+    vhost: {{ libretime_rabbitmq_vhost }}
+    user: {{ libretime_rabbitmq_user }}
+    password: {{ libretime_rabbitmq_password }}
 
 libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_user: libretime
