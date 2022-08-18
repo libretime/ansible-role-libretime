@@ -29,6 +29,6 @@ repos:
         files: \.(md|yml|yaml|json)$
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.2.0
     hooks:
       - id: codespell
