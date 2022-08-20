@@ -81,8 +81,8 @@
   notify:
     - restart libretime-analyzer
     - restart libretime-api
-    - restart libretime-playout
     - restart libretime-liquidsoap
+    - restart libretime-playout
     - restart libretime-worker
 
 - name: install python3
@@ -92,17 +92,17 @@
 
 - ansible.builtin.import_tasks: shared.yml
   when: >
-    libretime_api_install or
-    libretime_worker_install or
     libretime_analyzer_install or
-    libretime_playout_install
+    libretime_api_install or
+    libretime_playout_install or
+    libretime_worker_install
 
 - ansible.builtin.import_tasks: api_client.yml
   when: >
-    libretime_api_install or
-    libretime_worker_install or
     libretime_analyzer_install or
-    libretime_playout_install
+    libretime_api_install or
+    libretime_playout_install or
+    libretime_worker_install
 
 - ansible.builtin.import_tasks: api.yml
   when: libretime_api_install
