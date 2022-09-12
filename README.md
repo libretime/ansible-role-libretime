@@ -16,8 +16,8 @@ See the `defaults/main.yml` file for details.
 
 - `libretime_allow_restart` defines whether the services should be restarted automatically. This variable **SHOULD** be updated. This flag is mainly used to prevent restarting a LibreTime service running in production.
 - `libretime_public_url` defines the public url used to access Libretime. This variable **MUST** be updated.
+- `libretime_api_key` define the api key. This variable **MUST** be updated.
 - `libretime_listen_port` defines the port on which the web server will listen.
-- `libretime_legacy_api_key` define the legacy api key. This variable **MUST** be updated.
 
 #### Icecast
 
@@ -50,7 +50,7 @@ See the `requirements.yml` file for details.
     - role: libretime
       libretime_public_url: https://station.radio.org
       libretime_listen_port: 8080
-      libretime_legacy_api_key: a182_your_secret_key_c87f
+      libretime_api_key: a182_your_secret_key_c87f
       libretime_icecast_admin_password: 0fd9ba81394a91cd178514e3c6788052
       libretime_icecast_source_password: ee41c264d954b92fce44521e02663d89
       libretime_icecast_relay_password: 9702d35f24d77ce8cb2da75ab2298654

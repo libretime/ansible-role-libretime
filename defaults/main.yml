@@ -4,26 +4,11 @@ libretime_migrate: true
 libretime_config_raw: |
   general:
     public_url: {{ libretime_public_url }}
-    api_key: {{ libretime_legacy_api_key }}
-
-  storage:
-    path: {{ libretime_storage_dir }}
-
-  database:
-    host: {{ libretime_postgresql_host }}
-    port: {{ libretime_postgresql_port }}
-    name: {{ libretime_postgresql_name }}
-    user: {{ libretime_postgresql_user }}
-    password: {{ libretime_postgresql_password }}
-
-  rabbitmq:
-    host: {{ libretime_rabbitmq_host }}
-    port: {{ libretime_rabbitmq_port }}
-    vhost: {{ libretime_rabbitmq_vhost }}
-    user: {{ libretime_rabbitmq_user }}
-    password: {{ libretime_rabbitmq_password }}
+    api_key: {{ libretime_api_key }}
 
 libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"
+libretime_api_key: "{{ libretime_legacy_api_key | default('hackme' }}"
+
 libretime_user: libretime
 libretime_listen_port: 80
 libretime_max_upload_size: 512M
@@ -58,7 +43,6 @@ libretime_api_install: true
 ########################################################################################
 libretime_legacy_install: true
 libretime_legacy_web_root: /usr/share/libretime/legacy
-libretime_legacy_api_key: hackme
 
 # > Postgresql
 ########################################################################################
