@@ -7,7 +7,7 @@
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/api"
     state: latest # noqa package-latest
-  notify: restart libretime
+  notify: Restart libretime
   when: libretime_checkout is changed
 
 - name: Create api home directory
@@ -22,10 +22,10 @@
   vars:
     service_name: libretime-api.socket
   notify:
-    - restart libretime
-    - restart nginx
+    - Restart libretime
+    - Restart nginx
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-api.service
-  notify: restart libretime
+  notify: Restart libretime

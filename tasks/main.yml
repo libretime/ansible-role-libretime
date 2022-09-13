@@ -63,7 +63,7 @@
     group: "{{ libretime_user }}"
     mode: 0640
     backup: true
-  notify: restart libretime
+  notify: Restart libretime
 
 - name: Create working directories
   ansible.builtin.file:

@@ -3,5 +3,5 @@
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/api-client"
     state: latest # noqa package-latest
-  notify: restart libretime
+  notify: Restart libretime
   when: libretime_checkout is changed

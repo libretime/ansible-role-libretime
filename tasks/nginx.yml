@@ -8,7 +8,7 @@
   ansible.builtin.file:
     path: /etc/nginx/sites-enabled/default
     state: absent
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Deploy nginx conf
   ansible.builtin.template:
@@ -18,14 +18,14 @@
     group: root
     mode: 0644
     backup: true
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Enable nginx conf
   ansible.builtin.file:
     src: /etc/nginx/sites-available/libretime.conf
     dest: /etc/nginx/sites-enabled/libretime.conf
     state: link
-  notify: restart nginx
+  notify: Restart nginx
 
 - name: Check nginx config
   ansible.builtin.shell: /usr/sbin/nginx -t > /dev/null

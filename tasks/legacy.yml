@@ -10,7 +10,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart php-fpm
+  notify: Restart php-fpm
 
 - name: Assert composer is installed
   ansible.builtin.stat:

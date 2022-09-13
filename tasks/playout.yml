@@ -7,7 +7,7 @@
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/playout"
     state: latest # noqa package-latest
-  notify: restart libretime
+  notify: Restart libretime
   when: libretime_checkout is changed
 
 - name: Create playout home directory
@@ -29,9 +29,9 @@
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-playout.service
-  notify: restart libretime
+  notify: Restart libretime
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-liquidsoap.service
-  notify: restart libretime
+  notify: Restart libretime
