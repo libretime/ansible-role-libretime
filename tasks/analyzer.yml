@@ -7,7 +7,7 @@
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/analyzer"
     state: latest # noqa package-latest
-  notify: restart libretime-analyzer
+  notify: restart libretime
   when: libretime_checkout is changed
 
 - name: create analyzer home directory
@@ -21,4 +21,4 @@
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-analyzer.service
-  notify: restart libretime-analyzer
+  notify: restart libretime

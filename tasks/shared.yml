@@ -3,8 +3,5 @@
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/shared"
     state: latest # noqa package-latest
-  notify:
-    - restart libretime-analyzer
-    - restart libretime-liquidsoap
-    - restart libretime-playout
+  notify: restart libretime
   when: libretime_checkout is changed

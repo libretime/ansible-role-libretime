@@ -3,7 +3,7 @@
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/worker"
     state: latest # noqa package-latest
-  notify: restart libretime-worker
+  notify: restart libretime
   when: libretime_checkout is changed
 
 - name: create worker home directory
@@ -17,4 +17,4 @@
 - ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-worker.service
-  notify: restart libretime-worker
+  notify: restart libretime

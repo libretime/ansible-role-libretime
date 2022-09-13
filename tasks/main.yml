@@ -77,12 +77,7 @@
     group: "{{ libretime_user }}"
     mode: 0640
     backup: true
-  notify:
-    - restart libretime-analyzer
-    - restart libretime-api
-    - restart libretime-liquidsoap
-    - restart libretime-playout
-    - restart libretime-worker
+  notify: restart libretime
 
 - name: install python3
   ansible.builtin.apt:
