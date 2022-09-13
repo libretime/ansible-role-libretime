@@ -14,10 +14,12 @@ See the `defaults/main.yml` file for details.
 
 ### Important Role Variables
 
-- `libretime_allow_restart` defines whether the services should be restarted automatically. This variable **SHOULD** be updated. This flag is mainly used to prevent restarting a LibreTime service running in production.
-- `libretime_config_template` defines the path to your configuration template file. This variable **SHOULD** be updated. This is used to let you deploy your own configuration file, you can find an example in `templates/libretime/config.yml.j2`.
 - `libretime_public_url` defines the public url used to access Libretime. This variable **MUST** be updated.
 - `libretime_api_key` define the api key. This variable **MUST** be updated.
+
+- `libretime_config_template` defines the path to your configuration template file. This variable **SHOULD** be updated. This is used to let you deploy your own configuration file, you can find an example in `templates/libretime/config.yml.j2`.
+
+- `libretime_allow_restart` defines whether the services should be restarted automatically. This variable **SHOULD** be updated. This flag is mainly used to prevent restarting a LibreTime service running in production.
 - `libretime_listen_port` defines the port on which the web server will listen.
 
 #### Icecast
