@@ -48,26 +48,12 @@
     home: "{{ libretime_home }}"
   when: libretime_user != __default_web_user
 
-- name: create directories
+- name: create config directory
   ansible.builtin.file:
-    path: "{{ item.path }}"
-    owner: "{{ item.owner }}"
-    group: "{{ item.group }}"
+    path: "{{ libretime_config_dir }}"
+    owner: root
+    group: root
     state: directory
-    recurse: true
-  with_items:
-    - path: "{{ libretime_config_dir }}"
-      owner: root
-      group: root
-    - path: "{{ libretime_home }}"
-      owner: "{{ libretime_user }}"
-      group: "{{ libretime_user }}"
-    - path: "{{ libretime_log_dir }}"
-      owner: "{{ libretime_user }}"
-      group: "{{ libretime_user }}"
-    - path: "{{ libretime_storage_dir }}"
-      owner: "{{ libretime_user }}"
-      group: "{{ libretime_user }}"
 
 - name: deploy configuration file
   ansible.builtin.template:
@@ -78,6 +64,24 @@
     mode: 0640
     backup: true
   notify: restart libretime
+
+- name: create working directories
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    state: directory
+    recurse: true
+  with_items:
+    - path: "{{ libretime_home }}"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
+    - path: "{{ libretime_log_dir }}"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
+    - path: "{{ libretime_storage_dir }}"
+      owner: "{{ libretime_user }}"
+      group: "{{ libretime_user }}"
 
 - name: install python3
   ansible.builtin.apt:
