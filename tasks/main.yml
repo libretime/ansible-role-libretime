@@ -1,27 +1,27 @@
 ---
-- name: include distribution specific vars
+- name: Include distribution specific vars
   ansible.builtin.include_vars: "{{ ansible_distribution_release }}.yml"
 
-- name: install dependencies
+- name: Install dependencies
   ansible.builtin.apt:
     state: present
     name: [git, make]
     update_cache: true
 
-- name: checkout repository
+- name: Checkout repository
   ansible.builtin.git:
     repo: "{{ libretime_checkout_url }}"
     dest: "{{ libretime_checkout_dest }}"
     version: "{{ libretime_checkout_version }}"
   register: libretime_checkout
 
-- name: clean checkout # noqa no-handler command-instead-of-module
+- name: Clean checkout # noqa no-handler command-instead-of-module
   ansible.builtin.command: git clean -xdf
   args:
     chdir: "{{ libretime_checkout_dest }}"
   when: libretime_checkout is changed
 
-- name: build VERSION file
+- name: Build VERSION file
   ansible.builtin.command: make -C {{ libretime_checkout_dest }} VERSION
   args:
     creates: "{{ libretime_checkout_dest }}/VERSION"
@@ -40,7 +40,7 @@
 
 - ansible.builtin.import_tasks: nginx.yml
 
-- name: create {{ libretime_user }} user
+- name: Create {{ libretime_user }} user
   ansible.builtin.user:
     name: "{{ libretime_user }}"
     system: true
@@ -48,14 +48,14 @@
     home: "{{ libretime_home }}"
   when: libretime_user != __default_web_user
 
-- name: create config directory
+- name: Create config directory
   ansible.builtin.file:
     path: "{{ libretime_config_dir }}"
     owner: root
     group: root
     state: directory
 
-- name: deploy configuration file
+- name: Deploy configuration file
   ansible.builtin.template:
     src: "{{ libretime_config_template | default('libretime/config.yml.j2') }}"
     dest: "{{ libretime_config_filepath }}"
@@ -65,7 +65,7 @@
     backup: true
   notify: restart libretime
 
-- name: create working directories
+- name: Create working directories
   ansible.builtin.file:
     path: "{{ item.path }}"
     owner: "{{ item.owner }}"
@@ -83,7 +83,7 @@
       owner: "{{ libretime_user }}"
       group: "{{ libretime_user }}"
 
-- name: install python3
+- name: Install python3
   ansible.builtin.apt:
     state: present
     name: [python3, python3-pip]
@@ -121,7 +121,7 @@
   vars:
     service_name: libretime.target
 
-- name: run database migration
+- name: Run database migration
   become: true
   become_user: "{{ libretime_user }}"
   ansible.builtin.command: libretime-api migrate

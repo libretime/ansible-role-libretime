@@ -5,25 +5,25 @@
   become: true
 
   tasks:
-    - name: bypass deb.debian.org repository
+    - name: Bypass deb.debian.org repository
       ansible.builtin.replace:
         path: /etc/apt/sources.list
         regexp: 'http:\/\/deb\.debian\.org'
         replace: "http://cdn-fastly.deb.debian.org"
 
-    - name: setup apt proxy
+    - name: Setup apt proxy
       ansible.builtin.apt:
         state: present
         name: auto-apt-proxy
         update_cache: true
 
-    - name: install dependencies
+    - name: Install dependencies
       ansible.builtin.apt:
         state: present
         name: [git, make, acl] # Is acl only required while testing ?
         update_cache: true
 
-    - name: include libretime
+    - name: Include libretime
       ansible.builtin.include_role:
         name: ansible-role-libretime
       vars:

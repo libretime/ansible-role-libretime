@@ -1,12 +1,12 @@
 ---
-- name: install worker python package # noqa no-handler
+- name: Install worker python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/worker"
     state: latest # noqa package-latest
   notify: restart libretime
   when: libretime_checkout is changed
 
-- name: create worker home directory
+- name: Create worker home directory
   ansible.builtin.file:
     path: "{{ libretime_home }}/worker"
     owner: "{{ libretime_user }}"

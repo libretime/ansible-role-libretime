@@ -3,14 +3,14 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/playout"
 
-- name: install playout python package # noqa no-handler
+- name: Install playout python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/playout"
     state: latest # noqa package-latest
   notify: restart libretime
   when: libretime_checkout is changed
 
-- name: create playout home directory
+- name: Create playout home directory
   ansible.builtin.file:
     path: "{{ libretime_home }}/playout"
     owner: "{{ libretime_user }}"
@@ -18,7 +18,7 @@
     state: directory
     recurse: true
 
-- name: deploy liquidsoap logrotate config
+- name: Deploy liquidsoap logrotate config
   ansible.builtin.template:
     src: logrotate/libretime-liquidsoap.conf.j2
     dest: /etc/logrotate.d/libretime-liquidsoap

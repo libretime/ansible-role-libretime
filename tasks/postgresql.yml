@@ -1,19 +1,19 @@
 ---
-- name: install postgresql
+- name: Install postgresql
   ansible.builtin.apt:
     state: present
     name: [postgresql, postgresql-client, python3-psycopg2]
 
-- name: setup database
+- name: Setup database
   become: true
   become_user: postgres
   block:
-    - name: create postgresql database user
+    - name: Create postgresql database user
       community.postgresql.postgresql_user:
         name: "{{ libretime_postgresql_user }}"
         password: "{{ libretime_postgresql_password }}"
 
-    - name: create postgresql database
+    - name: Create postgresql database
       community.postgresql.postgresql_db:
         name: "{{ libretime_postgresql_name }}"
         encoding: UTF-8

@@ -1,5 +1,5 @@
 ---
-- name: install shared python package # noqa no-handler
+- name: Install shared python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/shared"
     state: latest # noqa package-latest

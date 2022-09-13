@@ -1,17 +1,17 @@
 ---
-- name: install rabbitmq
+- name: Install rabbitmq
   ansible.builtin.apt:
     state: present
     name: [rabbitmq-server]
 
-- name: setup rabbitmq
+- name: Setup rabbitmq
   block:
-    - name: create rabbitmq vhost
+    - name: Create rabbitmq vhost
       community.rabbitmq.rabbitmq_vhost:
         name: "{{ libretime_rabbitmq_vhost }}"
         state: present
 
-    - name: create rabbitmq user
+    - name: Create rabbitmq user
       community.rabbitmq.rabbitmq_user:
         user: "{{ libretime_rabbitmq_user }}"
         password: "{{ libretime_rabbitmq_password }}"

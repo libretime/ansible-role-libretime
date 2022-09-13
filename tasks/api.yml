@@ -3,14 +3,14 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/api"
 
-- name: install api python package # noqa no-handler
+- name: Install api python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/api"
     state: latest # noqa package-latest
   notify: restart libretime
   when: libretime_checkout is changed
 
-- name: create api home directory
+- name: Create api home directory
   ansible.builtin.file:
     path: "{{ libretime_home }}/api"
     owner: "{{ libretime_user }}"

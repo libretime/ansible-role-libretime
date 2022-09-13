@@ -2,7 +2,7 @@
 # service_name: required
 # service_enabled: true
 
-- name: deploy {{ service_name }} systemd unit
+- name: Deploy {{ service_name }} systemd unit
   ansible.builtin.template:
     src: systemd/{{ service_name }}.j2
     dest: /usr/lib/systemd/system/{{ service_name }}
@@ -11,12 +11,12 @@
     mode: 0644
   register: systemd
 
-- name: reload systemd daemon # noqa no-handler
+- name: Reload systemd daemon # noqa no-handler
   ansible.builtin.systemd:
     daemon_reload: true
   when: systemd is changed
 
-- name: enable {{ service_name }} systemd unit
+- name: Enable {{ service_name }} systemd unit
   ansible.builtin.systemd:
     name: "{{ service_name }}"
     enabled: "{{ service_enabled | default(true) }}"

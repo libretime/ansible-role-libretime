@@ -1,16 +1,16 @@
 ---
-- name: install icecast
+- name: Install icecast
   ansible.builtin.apt:
     state: present
     name: [icecast2, python3-lxml]
 
-- name: start and enable icecast systemd service
+- name: Start and enable icecast systemd service
   ansible.builtin.systemd:
     name: icecast2.service
     state: started
     enabled: true
 
-- name: update icecast config
+- name: Update icecast config
   community.general.xml:
     path: /etc/icecast2/icecast.xml
     xpath: "{{ item.xpath }}"

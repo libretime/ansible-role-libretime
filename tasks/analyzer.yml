@@ -3,14 +3,14 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/analyzer"
 
-- name: install analyzer python package # noqa no-handler
+- name: Install analyzer python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/analyzer"
     state: latest # noqa package-latest
   notify: restart libretime
   when: libretime_checkout is changed
 
-- name: create analyzer home directory
+- name: Create analyzer home directory
   ansible.builtin.file:
     path: "{{ libretime_home }}/analyzer"
     owner: "{{ libretime_user }}"

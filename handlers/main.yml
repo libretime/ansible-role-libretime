@@ -1,22 +1,22 @@
 ---
 # The order of the handlers matters
 
-- name: restart nginx
+- name: Restart nginx
   ansible.builtin.systemd:
     name: nginx
     state: restarted
 
-- name: restart php-fpm
+- name: Restart php-fpm
   ansible.builtin.systemd:
     name: "php{{ __php_default_version }}-fpm"
     state: restarted
 
-- name: restart icecast
+- name: Restart icecast
   ansible.builtin.systemd:
     name: icecast2
     state: restarted
 
-- name: restart libretime
+- name: Restart libretime
   ansible.builtin.systemd:
     name: libretime.target
     state: restarted

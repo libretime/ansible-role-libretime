@@ -1,11 +1,11 @@
 ---
-- name: install liquidsoap
+- name: Install liquidsoap
   ansible.builtin.apt:
     state: present
     name: liquidsoap
   when: libretime_liquidsoap_package_url is not defined
 
-- name: install liquidsoap from url
+- name: Install liquidsoap from url
   ansible.builtin.apt:
     state: present
     deb: "{{ libretime_liquidsoap_package_url }}"

@@ -3,7 +3,7 @@
   vars:
     packages_path: "{{ libretime_checkout_dest }}/legacy"
 
-- name: deploy legacy php-fpm config
+- name: Deploy legacy php-fpm config
   ansible.builtin.template:
     src: php-fpm/libretime-legacy.conf.j2
     dest: "/etc/php/{{ __php_default_version }}/fpm/pool.d/libretime-legacy.conf"
@@ -12,32 +12,32 @@
     mode: 0644
   notify: restart php-fpm
 
-- name: assert composer is installed
+- name: Assert composer is installed
   ansible.builtin.stat:
     path: /usr/local/bin/composer
   register: composer
 
-- name: install composer
+- name: Install composer
   block:
-    - name: install composer dependencies
+    - name: Install composer dependencies
       ansible.builtin.apt:
         state: present
         name: [unzip]
 
-    - name: get composer installer signature
+    - name: Get composer installer signature
       ansible.builtin.uri:
         url: https://composer.github.io/installer.sig
         return_content: true
       register: composer_installer_signature
 
-    - name: download composer installer
+    - name: Download composer installer
       ansible.builtin.get_url:
         url: https://getcomposer.org/installer
         dest: /tmp/composer-installer.php
         mode: 0755
         checksum: "sha384:{{ composer_installer_signature.content }}"
 
-    - name: run composer installer # noqa no-changed-when
+    - name: Run composer installer # noqa no-changed-when
       ansible.builtin.command: >
         php /tmp/composer-installer.php
           --install-dir=/usr/local/bin
@@ -45,13 +45,13 @@
 
   when: not composer.stat.exists or not composer.stat.executable
 
-- name: clean legacy web root directory # noqa no-handler
+- name: Clean legacy web root directory # noqa no-handler
   ansible.builtin.file:
     path: "{{ libretime_legacy_web_root }}"
     state: absent
   when: libretime_checkout is changed
 
-- name: create legacy web root directory # noqa command-instead-of-module
+- name: Create legacy web root directory # noqa command-instead-of-module
   ansible.builtin.file:
     path: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
@@ -59,7 +59,7 @@
     state: directory
     mode: 0755
 
-- name: copy legacy files in the web root
+- name: Copy legacy files in the web root
   ansible.builtin.copy:
     src: "{{ libretime_checkout_dest }}/legacy/"
     dest: "{{ libretime_legacy_web_root }}"
@@ -67,14 +67,14 @@
     group: "{{ libretime_user }}"
     remote_src: true
 
-- name: build legacy
+- name: Build legacy
   become: true
   become_user: "{{ libretime_user }}"
   ansible.builtin.command: make -C {{ libretime_legacy_web_root }} build
   args:
     creates: "{{ libretime_legacy_web_root }}/vendor"
 
-- name: copy VERSION file in the web root
+- name: Copy VERSION file in the web root
   ansible.builtin.copy:
     src: "{{ libretime_checkout_dest }}/VERSION"
     dest: "{{ libretime_legacy_web_root }}"
@@ -82,7 +82,7 @@
     group: "{{ libretime_user }}"
     remote_src: true
 
-- name: deploy legacy logrotate config
+- name: Deploy legacy logrotate config
   ansible.builtin.template:
     src: logrotate/libretime-legacy.conf.j2
     dest: /etc/logrotate.d/libretime-legacy
