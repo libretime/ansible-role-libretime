@@ -4,6 +4,7 @@
   vars:
     libretime_allow_restart: false
 
+    libretime_config_template: config.yml.j2
     libretime_public_url: https://station.radio.org
     libretime_api_key: some_secret_generated_key!
 
