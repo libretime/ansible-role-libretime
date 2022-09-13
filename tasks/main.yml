@@ -71,7 +71,7 @@
 
 - name: deploy configuration file
   ansible.builtin.template:
-    src: libretime/config.yml.j2
+    src: "{{ libretime_config_template | default('libretime/config.yml.j2') }}"
     dest: "{{ libretime_config_filepath }}"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"

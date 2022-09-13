@@ -1,11 +1,8 @@
 ---
 libretime_allow_restart: true
 libretime_migrate: true
-libretime_config_raw: |
-  general:
-    public_url: {{ libretime_public_url }}
-    api_key: {{ libretime_api_key }}
 
+# libretime_config_template:
 libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_api_key: "{{ libretime_legacy_api_key | default('hackme' }}"
 
