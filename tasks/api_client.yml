@@ -2,6 +2,7 @@
 - name: install api-client python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/api-client"
+    state: latest # noqa package-latest
   notify:
     - restart libretime-playout
   when: libretime_checkout is changed

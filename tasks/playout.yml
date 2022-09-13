@@ -6,6 +6,7 @@
 - name: install playout python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/playout"
+    state: latest # noqa package-latest
   notify:
     - restart libretime-playout
     - restart libretime-liquidsoap

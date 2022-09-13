@@ -6,6 +6,7 @@
 - name: install analyzer python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/analyzer"
+    state: latest # noqa package-latest
   notify: restart libretime-analyzer
   when: libretime_checkout is changed
 

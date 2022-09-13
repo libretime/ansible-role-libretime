@@ -2,6 +2,7 @@
 - name: install worker python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/worker"
+    state: latest # noqa package-latest
   notify: restart libretime-worker
   when: libretime_checkout is changed
 

@@ -2,6 +2,7 @@
 - name: install shared python package # noqa no-handler
   ansible.builtin.pip:
     name: "file://{{ libretime_checkout_dest }}/shared"
+    state: latest # noqa package-latest
   notify:
     - restart libretime-analyzer
     - restart libretime-liquidsoap
