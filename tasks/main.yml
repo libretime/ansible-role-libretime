@@ -40,7 +40,7 @@
 
 - ansible.builtin.import_tasks: nginx.yml
 
-- name: Create {{ libretime_user }} user
+- name: Create user {{ libretime_user }}
   ansible.builtin.user:
     name: "{{ libretime_user }}"
     system: true

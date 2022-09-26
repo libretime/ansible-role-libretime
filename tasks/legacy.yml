@@ -18,6 +18,7 @@
   register: composer
 
 - name: Install composer
+  when: not composer.stat.exists or not composer.stat.executable
   block:
     - name: Install composer dependencies
       ansible.builtin.apt:
@@ -42,8 +43,6 @@
         php /tmp/composer-installer.php
           --install-dir=/usr/local/bin
           --filename=composer
-
-  when: not composer.stat.exists or not composer.stat.executable
 
 - name: Clean legacy web root directory # noqa no-handler
   ansible.builtin.file:
