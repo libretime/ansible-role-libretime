@@ -27,16 +27,16 @@
     creates: "{{ libretime_checkout_dest }}/VERSION"
 
 - ansible.builtin.import_tasks: postgresql.yml
-  when: libretime_postgresql_install
+  when: libretime_postgresql_managed
 
 - ansible.builtin.import_tasks: rabbitmq.yml
-  when: libretime_rabbitmq_install
+  when: libretime_rabbitmq_managed
 
 - ansible.builtin.import_tasks: icecast.yml
-  when: libretime_icecast_install
+  when: libretime_icecast_managed
 
 - ansible.builtin.import_tasks: liquidsoap.yml
-  when: libretime_liquidsoap_install
+  when: libretime_liquidsoap_managed
 
 - ansible.builtin.import_tasks: nginx.yml
 
@@ -90,32 +90,32 @@
 
 - ansible.builtin.import_tasks: shared.yml
   when: >
-    libretime_analyzer_install or
-    libretime_api_install or
-    libretime_playout_install or
-    libretime_worker_install
+    libretime_analyzer_managed or
+    libretime_api_managed or
+    libretime_playout_managed or
+    libretime_worker_managed
 
 - ansible.builtin.import_tasks: api_client.yml
   when: >
-    libretime_analyzer_install or
-    libretime_api_install or
-    libretime_playout_install or
-    libretime_worker_install
+    libretime_analyzer_managed or
+    libretime_api_managed or
+    libretime_playout_managed or
+    libretime_worker_managed
 
 - ansible.builtin.import_tasks: api.yml
-  when: libretime_api_install
+  when: libretime_api_managed
 
 - ansible.builtin.import_tasks: worker.yml
-  when: libretime_worker_install
+  when: libretime_worker_managed
 
 - ansible.builtin.import_tasks: analyzer.yml
-  when: libretime_analyzer_install
+  when: libretime_analyzer_managed
 
 - ansible.builtin.import_tasks: playout.yml
-  when: libretime_playout_install
+  when: libretime_playout_managed
 
 - ansible.builtin.import_tasks: legacy.yml
-  when: libretime_legacy_install
+  when: libretime_legacy_managed
 
 - ansible.builtin.import_tasks: _systemd.yml
   vars:

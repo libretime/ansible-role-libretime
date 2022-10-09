@@ -22,28 +22,28 @@ libretime_storage_dir: /srv/libretime
 
 # > Analyzer
 ########################################################################################
-libretime_analyzer_install: true
+libretime_analyzer_managed: true
 
 # > Playout
 ########################################################################################
-libretime_playout_install: true
+libretime_playout_managed: true
 
 # > Worker
 ########################################################################################
-libretime_worker_install: true
+libretime_worker_managed: true
 
 # > API
 ########################################################################################
-libretime_api_install: true
+libretime_api_managed: true
 
 # > Legacy
 ########################################################################################
-libretime_legacy_install: true
+libretime_legacy_managed: true
 libretime_legacy_web_root: /usr/share/libretime/legacy
 
 # > Postgresql
 ########################################################################################
-libretime_postgresql_install: true
+libretime_postgresql_managed: true
 
 libretime_postgresql_host: localhost
 libretime_postgresql_port: 5432
@@ -53,7 +53,7 @@ libretime_postgresql_password: libretime
 
 # > RabbitMQ
 ########################################################################################
-libretime_rabbitmq_install: true
+libretime_rabbitmq_managed: true
 
 libretime_rabbitmq_host: localhost
 libretime_rabbitmq_port: 5672
@@ -63,7 +63,7 @@ libretime_rabbitmq_password: libretime
 
 # > Icecast
 ########################################################################################
-libretime_icecast_install: true
+libretime_icecast_managed: true
 
 libretime_icecast_location: Earth
 libretime_icecast_admin: icemaster@localhost
@@ -77,5 +77,5 @@ libretime_icecast_relay_password: hackme
 
 # > Liquidsoap
 ########################################################################################
-libretime_liquidsoap_install: true
+libretime_liquidsoap_managed: true
 # libretime_liquidsoap_package_url:
