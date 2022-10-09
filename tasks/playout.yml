@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.import_tasks: _dependencies.yml
+- name: Install playout dependencies
+  ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/playout"
 
@@ -26,12 +27,14 @@
     group: root
     mode: 0644
 
-- ansible.builtin.import_tasks: _systemd.yml
+- name: Setup playout systemd service
+  ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-playout.service
   notify: Restart libretime
 
-- ansible.builtin.import_tasks: _systemd.yml
+- name: Setup liquidsoap systemd service
+  ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-liquidsoap.service
   notify: Restart libretime

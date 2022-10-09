@@ -26,19 +26,24 @@
   args:
     creates: "{{ libretime_checkout_dest }}/VERSION"
 
-- ansible.builtin.import_tasks: postgresql.yml
+- name: Setup postgresql
+  ansible.builtin.import_tasks: postgresql.yml
   when: libretime_postgresql_managed
 
-- ansible.builtin.import_tasks: rabbitmq.yml
+- name: Setup rabbitmq
+  ansible.builtin.import_tasks: rabbitmq.yml
   when: libretime_rabbitmq_managed
 
-- ansible.builtin.import_tasks: icecast.yml
+- name: Setup icecast
+  ansible.builtin.import_tasks: icecast.yml
   when: libretime_icecast_managed
 
-- ansible.builtin.import_tasks: liquidsoap.yml
+- name: Setup liquidsoap
+  ansible.builtin.import_tasks: liquidsoap.yml
   when: libretime_liquidsoap_managed
 
-- ansible.builtin.import_tasks: nginx.yml
+- name: Setup nginx
+  ansible.builtin.import_tasks: nginx.yml
 
 - name: Create user {{ libretime_user }}
   ansible.builtin.user:
@@ -53,6 +58,7 @@
     path: "{{ libretime_config_dir }}"
     owner: root
     group: root
+    mode: 0750
     state: directory
 
 - name: Deploy configuration file
@@ -88,36 +94,44 @@
     state: present
     name: [python3, python3-pip]
 
-- ansible.builtin.import_tasks: shared.yml
+- name: Setup shared
+  ansible.builtin.import_tasks: shared.yml
   when: >
     libretime_analyzer_managed or
     libretime_api_managed or
     libretime_playout_managed or
     libretime_worker_managed
 
-- ansible.builtin.import_tasks: api_client.yml
+- name: Setup api-client
+  ansible.builtin.import_tasks: api_client.yml
   when: >
     libretime_analyzer_managed or
     libretime_api_managed or
     libretime_playout_managed or
     libretime_worker_managed
 
-- ansible.builtin.import_tasks: api.yml
+- name: Setup api
+  ansible.builtin.import_tasks: api.yml
   when: libretime_api_managed
 
-- ansible.builtin.import_tasks: worker.yml
+- name: Setup worker
+  ansible.builtin.import_tasks: worker.yml
   when: libretime_worker_managed
 
-- ansible.builtin.import_tasks: analyzer.yml
+- name: Setup analyzer
+  ansible.builtin.import_tasks: analyzer.yml
   when: libretime_analyzer_managed
 
-- ansible.builtin.import_tasks: playout.yml
+- name: Setup playout
+  ansible.builtin.import_tasks: playout.yml
   when: libretime_playout_managed
 
-- ansible.builtin.import_tasks: legacy.yml
+- name: Setup legacy
+  ansible.builtin.import_tasks: legacy.yml
   when: libretime_legacy_managed
 
-- ansible.builtin.import_tasks: _systemd.yml
+- name: Setup systemd target
+  ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime.target
 

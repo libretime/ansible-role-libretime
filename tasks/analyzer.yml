@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.import_tasks: _dependencies.yml
+- name: Install analyzer dependencies
+  ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/analyzer"
 
@@ -18,7 +19,8 @@
     state: directory
     recurse: true
 
-- ansible.builtin.import_tasks: _systemd.yml
+- name: Setup analyzer systemd service
+  ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-analyzer.service
   notify: Restart libretime

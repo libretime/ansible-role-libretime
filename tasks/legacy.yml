@@ -1,5 +1,6 @@
 ---
-- ansible.builtin.import_tasks: _dependencies.yml
+- name: Install legacy dependencies
+  ansible.builtin.import_tasks: _dependencies.yml
   vars:
     packages_path: "{{ libretime_checkout_dest }}/legacy"
 
@@ -38,7 +39,7 @@
         mode: 0755
         checksum: "sha384:{{ composer_installer_signature.content }}"
 
-    - name: Run composer installer # noqa no-changed-when
+    - name: Run composer installer # noqa no-changed-when no-free-form
       ansible.builtin.command: >
         php /tmp/composer-installer.php
           --install-dir=/usr/local/bin
