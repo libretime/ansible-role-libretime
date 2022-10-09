@@ -1,9 +1,9 @@
 galaxy_info:
   role_name: libretime
-  author: jooola
+  author: libretime
   description: Ansible role to install Libretime
 
-  issue_tracker_url: https://github.com/jooola/ansible-role-libretime/issues
+  issue_tracker_url: https://github.com/libretime/ansible-role-libretime/issues
   license: GPL-3.0-only
 
   min_ansible_version: "2.8"
