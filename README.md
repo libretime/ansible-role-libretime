@@ -2,8 +2,6 @@
 
 Deploy `libretime` using Ansible.
 
-> Starting with LibreTime `3.0.0-alpha.12`, the `ansible-role-libretime` role will only support installation for the latest versions and the `main` development branch of LibreTime.
-
 ## Requirements
 
 See the `requirements.yml` file for details.
