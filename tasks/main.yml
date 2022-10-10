@@ -58,7 +58,7 @@
     path: "{{ libretime_config_dir }}"
     owner: root
     group: root
-    mode: 0750
+    mode: 0755
     state: directory
 
 - name: Deploy configuration file
