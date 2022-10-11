@@ -25,7 +25,7 @@ def test_services_are_enabled_and_running(host, service_name):
 
 
 def test_config_is_deployed(host):
-    config = host.file("/etc/airtime/airtime.conf")
-    assert config.user == "www-data"
-    assert config.group == "www-data"
+    config = host.file("/etc/libretime/config.yml")
+    assert config.user == "libretime"
+    assert config.group == "libretime"
     assert config.mode == 0o640

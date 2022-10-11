@@ -1,0 +1,23 @@
+{% if item.registry is defined %}
+FROM {{ item.registry.url }}/{{ item.image }}
+{% else %}
+FROM {{ item.image }}
+{% endif %}
+
+RUN set -eux \
+    && DEBIAN_FRONTEND=noninteractive apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    bash \
+    ca-certificates \
+    python3 \
+    python3-setuptools \
+    sudo \
+    systemd \
+    systemd-sysv \
+    && rm -rf /var/lib/apt/lists/*
+
+# Allow systemd services to be started/enabled during installation
+RUN sed -i -e "s|^exit 101|exit 0|g" /usr/sbin/policy-rc.d
+
+VOLUME ["/sys/fs/cgroup"]
+CMD ["/lib/systemd/systemd"]

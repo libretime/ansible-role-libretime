@@ -1,28 +1,21 @@
 ---
 driver:
-  name: vagrant
-  provider:
-    name: libvirt
+  name: podman
 
 platforms:
-  - name: bullseye
-    box: debian/bullseye64
-    memory: 1024
-    cpus: 2
-    interfaces:
-      - network_name: private_network
-        ip: 192.168.121.10
-
-  # - name: focal
-  #   box: generic/ubuntu2004
-  #   memory: 1024
-  #   cpus: 2
-  #   interfaces:
-  #     - network_name: private_network
-  #       ip: 192.168.121.10
+  - name: instance
+    image: ${MOLECULE_IMAGE:-debian:bullseye}
+    dockerfile: Dockerfile.j2
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    override_command: false
+    systemd: always
 
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_FORCE_COLOR: true
+    ANSIBLE_PIPELINING: true
 
 verifier:
   name: testinfra
