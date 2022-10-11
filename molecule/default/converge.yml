@@ -5,20 +5,20 @@
   become: true
 
   tasks:
-    - name: Setup apt proxy
-      when: lookup("env", "CI") != "true"
-      block:
-        - name: Bypass deb.debian.org repository
-          ansible.builtin.replace:
-            path: /etc/apt/sources.list
-            regexp: 'http:\/\/deb\.debian\.org'
-            replace: "http://cdn-fastly.deb.debian.org"
+    # - name: Setup apt proxy
+    #   when: lookup("env", "CI") != "true"
+    #   block:
+    #     - name: Bypass deb.debian.org repository
+    #       ansible.builtin.replace:
+    #         path: /etc/apt/sources.list
+    #         regexp: 'http:\/\/deb\.debian\.org'
+    #         replace: "http://cdn-fastly.deb.debian.org"
 
-        - name: Install auto-apt-proxy
-          ansible.builtin.apt:
-            state: present
-            name: auto-apt-proxy
-            update_cache: true
+    #     - name: Install auto-apt-proxy
+    #       ansible.builtin.apt:
+    #         state: present
+    #         name: auto-apt-proxy
+    #         update_cache: true
 
     - name: Install dependencies
       ansible.builtin.apt:
