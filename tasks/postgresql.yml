@@ -4,6 +4,11 @@
     state: present
     name: [postgresql, postgresql-client, python3-psycopg2]
 
+- name: Ensure postgresql is running
+  ansible.builtin.systemd:
+    name: postgresql
+    state: started
+
 - name: Setup database
   become: true
   become_user: postgres
