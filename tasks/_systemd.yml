@@ -2,6 +2,15 @@
 # service_name: required
 # service_enabled: true
 
+- name: Ensure systemd unit directory exists
+  ansible.builtin.file:
+    path: /usr/lib/systemd/system
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  run_once: true
+
 - name: Deploy systemd unit {{ service_name }}
   ansible.builtin.template:
     src: systemd/{{ service_name }}.j2
