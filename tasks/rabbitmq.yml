@@ -4,6 +4,11 @@
     state: present
     name: [rabbitmq-server]
 
+- name: Ensure rabbitmq is running
+  ansible.builtin.systemd:
+    name: rabbitmq-server
+    state: started
+
 - name: Setup rabbitmq
   block:
     - name: Create rabbitmq vhost
