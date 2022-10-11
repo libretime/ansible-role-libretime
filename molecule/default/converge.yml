@@ -6,6 +6,7 @@
 
   tasks:
     - name: Setup apt proxy
+      when: lookup("env", "CI") != "true"
       block:
         - name: Bypass deb.debian.org repository
           ansible.builtin.replace:
