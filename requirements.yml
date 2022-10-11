@@ -3,7 +3,3 @@ collections:
   - name: community.general
   - name: community.postgresql
   - name: community.rabbitmq
-
-roles:
-  - name: libretime
-    src: git+https://github.com/libretime/ansible-role-libretime.git
