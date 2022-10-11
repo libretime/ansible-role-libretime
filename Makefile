@@ -20,5 +20,9 @@ lint: $(VENV)
 	source $(VENV)/bin/activate
 	ansible-lint --force-color
 
+test: $(VENV)
+	source $(VENV)/bin/activate
+	molecule test
+
 clean:
 	rm -Rf $(VENV)
