@@ -13,6 +13,7 @@
     repo: "{{ libretime_checkout_url }}"
     dest: "{{ libretime_checkout_dest }}"
     version: "{{ libretime_checkout_version }}"
+    depth: 1
   register: libretime_checkout
 
 - name: Clean checkout # noqa no-handler command-instead-of-module
