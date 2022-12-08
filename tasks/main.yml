@@ -106,7 +106,8 @@
 - name: Create venv
   when: libretime_venv is defined
   ansible.builtin.pip:
-    name: [wheel]
+    name: [pip, setuptools, wheel]
+    state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv }}"
     virtualenv_command: python3 -m venv
 
