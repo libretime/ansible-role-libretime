@@ -103,6 +103,12 @@
     state: present
     name: [python3, python3-pip, python3-venv]
 
+- name: Upgrade python3 base packages
+  when: libretime_venv is not defined
+  ansible.builtin.pip:
+    name: [pip, setuptools, wheel]
+    state: latest # noqa package-latest
+
 - name: Create venv
   when: libretime_venv is defined
   ansible.builtin.pip:
