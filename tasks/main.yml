@@ -27,6 +27,14 @@
   args:
     creates: "{{ libretime_checkout_dest }}/VERSION"
 
+- name: Ensure systemd unit directory exists
+  ansible.builtin.file:
+    path: /usr/lib/systemd/system
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Setup postgresql
   ansible.builtin.import_tasks: postgresql.yml
   when: libretime_postgresql_managed
