@@ -1,5 +1,11 @@
 ---
 collections:
-  - name: community.general
-  - name: community.postgresql
-  - name: community.rabbitmq
+  # - name: community.general
+  # - name: community.postgresql
+  # - name: community.rabbitmq
+  - name: git+https://github.com/ansible-collections/community.general.git
+    version: 6.1.0
+  - name: git+https://github.com/ansible-collections/community.postgresql.git
+    version: 2.3.1
+  - name: git+https://github.com/ansible-collections/community.rabbitmq.git
+    version: 1.2.3
