@@ -29,6 +29,3 @@
     - name: Include libretime
       ansible.builtin.include_role:
         name: ansible-role-libretime
-      vars:
-        libretime_public_url: http://localhost:{{ libretime_listen_port }}/
-        libretime_listen_port: 8888
