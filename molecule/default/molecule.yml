@@ -12,6 +12,9 @@ platforms:
     override_command: false
     systemd: always
 
+  - <<: *instance
+    name: instance2
+
 provisioner:
   name: ansible
   env:
@@ -22,6 +25,10 @@ provisioner:
       instance1:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9001
+      instance2:
+        libretime_public_url: http://localhost:{{ libretime_listen_port }}/
+        libretime_listen_port: 9002
+        libretime_venv: /opt/libretime
 
 verifier:
   name: testinfra

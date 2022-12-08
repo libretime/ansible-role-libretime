@@ -101,7 +101,14 @@
 - name: Install python3
   ansible.builtin.apt:
     state: present
-    name: [python3, python3-pip]
+    name: [python3, python3-pip, python3-venv]
+
+- name: Create venv
+  when: libretime_venv is defined
+  ansible.builtin.pip:
+    name: [wheel]
+    virtualenv: "{{ libretime_venv }}"
+    virtualenv_command: python3 -m venv --upgrade-deps
 
 - name: Setup shared
   ansible.builtin.import_tasks: shared.yml
@@ -147,7 +154,7 @@
 - name: Run database migration
   become: true
   become_user: "{{ libretime_user }}"
-  ansible.builtin.command: libretime-api migrate
+  ansible.builtin.command: "{{ libretime_venv | default('/usr/local') }}/bin/libretime-api migrate"
   register: migration
   changed_when: >
     "No migrations to apply." not in migration.stdout

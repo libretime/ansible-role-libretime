@@ -21,7 +21,7 @@ Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/analyzer.log
 WorkingDirectory={{ libretime_home }}/analyzer
 
-ExecStart=/usr/local/bin/libretime-analyzer
+ExecStart={{ libretime_venv | default('/usr/local') }}/bin/libretime-analyzer
 Restart=always
 
 User={{ libretime_user }}

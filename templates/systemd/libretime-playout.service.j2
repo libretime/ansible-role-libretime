@@ -23,7 +23,7 @@ Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/playout.log
 WorkingDirectory={{ libretime_home }}/playout
 
-ExecStart=/usr/local/bin/libretime-playout
+ExecStart={{ libretime_venv | default('/usr/local') }}/bin/libretime-playout
 Restart=always
 
 User={{ libretime_user }}

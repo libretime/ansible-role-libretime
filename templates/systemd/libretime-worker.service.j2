@@ -21,7 +21,7 @@ Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/worker.log
 WorkingDirectory={{ libretime_home }}/worker
 
-ExecStart=/usr/bin/sh -c 'celery worker \
+ExecStart=/usr/bin/sh -c '{{ libretime_venv | default('/usr/local') }}/bin/celery worker \
     --app=libretime_worker.tasks:worker \
     --config=libretime_worker.config \
     --time-limit=1800 \
