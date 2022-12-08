@@ -6,7 +6,7 @@
 
 - name: Install api python package # noqa no-handler
   ansible.builtin.pip:
-    name: "file://{{ libretime_checkout_dest }}/api"
+    name: "libretime-api[prod] @ file://{{ libretime_checkout_dest }}/api"
     state: latest # noqa package-latest
   notify: Restart libretime
   when: libretime_checkout is changed
