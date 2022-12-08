@@ -108,7 +108,7 @@
   ansible.builtin.pip:
     name: [wheel]
     virtualenv: "{{ libretime_venv }}"
-    virtualenv_command: python3 -m venv --upgrade-deps
+    virtualenv_command: python3 -m venv
 
 - name: Setup shared
   ansible.builtin.import_tasks: shared.yml
