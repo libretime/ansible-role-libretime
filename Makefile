@@ -1,14 +1,12 @@
 SHELL = bash
 VENV = .venv
 
-all: $(VENV)
+all: install
 
-venv: $(VENV)
+install: $(VENV)
 $(VENV):
 	python3 -m venv $(VENV)
 	$(VENV)/bin/pip install --upgrade pip wheel
-
-install: $(VENV)
 	$(VENV)/bin/pip install -r requirements.txt
 	$(VENV)/bin/ansible-galaxy install -r requirements.yml
 
