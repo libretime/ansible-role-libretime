@@ -26,7 +26,7 @@
     dest: /etc/logrotate.d/libretime-liquidsoap
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: Setup playout systemd service
   ansible.builtin.import_tasks: _systemd.yml

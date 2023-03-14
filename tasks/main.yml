@@ -16,7 +16,7 @@
     depth: 1
   register: libretime_checkout
 
-- name: Clean checkout # noqa no-handler command-instead-of-module
+- name: Clean checkout # noqa no-handler command-instead-of-module no-changed-when
   ansible.builtin.command: git clean -xdf
   args:
     chdir: "{{ libretime_checkout_dest }}"
@@ -33,7 +33,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 - name: Setup postgresql
   ansible.builtin.import_tasks: postgresql.yml
@@ -67,7 +67,7 @@
     path: "{{ libretime_config_dir }}"
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
     state: directory
 
 - name: Deploy configuration file
@@ -76,7 +76,7 @@
     dest: "{{ libretime_config_filepath }}"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
-    mode: 0640
+    mode: "0640"
     backup: true
   notify: Restart libretime
 

@@ -8,7 +8,7 @@
     dest: /usr/lib/systemd/system/{{ service_name }}
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   register: systemd
 
 - name: Reload systemd daemon # noqa no-handler

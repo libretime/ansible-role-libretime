@@ -1,5 +1,6 @@
 ---
-- hosts: libretime
+- name: Install libretime
+  hosts: libretime
   become: true
   vars:
     libretime_allow_restart: false

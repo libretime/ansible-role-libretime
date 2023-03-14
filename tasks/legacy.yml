@@ -10,7 +10,7 @@
     dest: "/etc/php/{{ __php_default_version }}/fpm/pool.d/libretime-legacy.conf"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify: Restart php-fpm
 
 - name: Assert composer is installed
@@ -36,7 +36,7 @@
       ansible.builtin.get_url:
         url: https://getcomposer.org/installer
         dest: /tmp/composer-installer.php
-        mode: 0755
+        mode: "0755"
         checksum: "sha384:{{ composer_installer_signature.content }}"
 
     - name: Run composer installer # noqa no-changed-when no-free-form
@@ -57,7 +57,7 @@
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
     state: directory
-    mode: 0755
+    mode: "0755"
 
 - name: Copy legacy files in the web root
   ansible.builtin.copy:
@@ -65,6 +65,7 @@
     dest: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
+    mode: preserve
     remote_src: true
 
 - name: Build legacy
@@ -80,6 +81,7 @@
     dest: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
     group: "{{ libretime_user }}"
+    mode: preserve
     remote_src: true
 
 - name: Deploy legacy logrotate config
@@ -88,4 +90,4 @@
     dest: /etc/logrotate.d/libretime-legacy
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
