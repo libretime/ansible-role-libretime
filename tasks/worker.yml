@@ -1,7 +1,9 @@
 ---
 - name: Install worker python package # noqa no-handler
   ansible.builtin.pip:
-    name: "file://{{ libretime_checkout_dest }}/worker"
+    name: >
+      libretime-worker
+      @ file://{{ libretime_checkout_dest }}/worker
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"
   notify: Restart libretime

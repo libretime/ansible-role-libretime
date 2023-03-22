@@ -6,7 +6,9 @@
 
 - name: Install api python package # noqa no-handler
   ansible.builtin.pip:
-    name: "libretime-api[prod] @ file://{{ libretime_checkout_dest }}/api"
+    name: >
+      libretime-api[prod]
+      @ file://{{ libretime_checkout_dest }}/api
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"
   notify: Restart libretime
