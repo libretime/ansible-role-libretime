@@ -29,7 +29,7 @@
         dest: /etc/systemd/system/{{ service_name }}.d/override.conf
         owner: root
         group: root
-        mode: "0640"
+        mode: "0644"
 
 - name: Reload systemd daemon # noqa no-handler
   ansible.builtin.systemd:
