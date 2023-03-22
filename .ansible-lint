@@ -1,4 +1,6 @@
 ---
 exclude_paths:
+  - .github
+  - .venv
   - example
   - tests/
