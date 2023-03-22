@@ -1,6 +1,7 @@
 ---
 # service_name: required
 # service_enabled: true
+# service_override:
 
 - name: Deploy systemd unit {{ service_name }}
   ansible.builtin.template:
@@ -10,6 +11,25 @@
     group: root
     mode: "0644"
   register: systemd
+
+- name: Deploy systemd unit override {{ service_name }}
+  when: service_override is defined and service_override
+  block:
+    - name: Create systemd unit override directory {{ service_name }}
+      ansible.builtin.file:
+        path: /etc/systemd/system/{{ service_name }}.d
+        owner: root
+        group: root
+        mode: "0755"
+        state: directory
+
+    - name: Deploy systemd unit override file {{ service_name }}
+      ansible.builtin.copy:
+        content: "{{ service_override }}"
+        dest: /etc/systemd/system/{{ service_name }}.d/override.conf
+        owner: root
+        group: root
+        mode: "0640"
 
 - name: Reload systemd daemon # noqa no-handler
   ansible.builtin.systemd:

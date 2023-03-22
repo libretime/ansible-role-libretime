@@ -21,4 +21,5 @@
   ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-worker.service
+    service_override: "{{ libretime_worker_systemd_override }}"
   notify: Restart libretime
