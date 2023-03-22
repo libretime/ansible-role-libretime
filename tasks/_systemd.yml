@@ -30,11 +30,12 @@
         owner: root
         group: root
         mode: "0644"
+      register: systemd_override
 
 - name: Reload systemd daemon # noqa no-handler
   ansible.builtin.systemd:
     daemon_reload: true
-  when: systemd is changed
+  when: systemd is changed or systemd_override is changed
 
 - name: Enable systemd unit {{ service_name }}
   ansible.builtin.systemd:
