@@ -26,6 +26,9 @@ provisioner:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9001
         libretime_playout_pip_extras: [sentry]
+        libretime_playout_systemd_override: |
+          [Service]
+          Environment=LIBRETIME_LOG_LEVEL=debug
       instance2:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9002

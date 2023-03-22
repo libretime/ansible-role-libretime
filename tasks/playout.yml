@@ -34,10 +34,12 @@
   ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-playout.service
+    service_override: "{{ libretime_playout_systemd_override }}"
   notify: Restart libretime
 
 - name: Setup liquidsoap systemd service
   ansible.builtin.import_tasks: _systemd.yml
   vars:
     service_name: libretime-liquidsoap.service
+    service_override: "{{ libretime_liquidsoap_systemd_override }}"
   notify: Restart libretime
