@@ -33,4 +33,6 @@
       value: "{{ libretime_icecast_source_password }}"
     - xpath: /icecast/authentication/relay-password
       value: "{{ libretime_icecast_relay_password }}"
+  loop_control:
+    label: "{{ item.xpath }}"
   notify: Restart icecast
