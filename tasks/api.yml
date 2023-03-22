@@ -7,7 +7,7 @@
 - name: Install api python package # noqa no-handler
   ansible.builtin.pip:
     name: >
-      libretime-api[prod]
+      libretime-api[{{ (['prod'] + libretime_api_pip_extras) | join(',') }}]
       @ file://{{ libretime_checkout_dest }}/api
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"
