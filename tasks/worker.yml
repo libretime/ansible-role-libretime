@@ -2,7 +2,7 @@
 - name: Install worker python package # noqa no-handler
   ansible.builtin.pip:
     name: >
-      libretime-worker
+      libretime-worker[{{ libretime_worker_pip_extras | join(',') }}]
       @ file://{{ libretime_checkout_dest }}/worker
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"

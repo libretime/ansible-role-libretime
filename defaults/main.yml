@@ -26,18 +26,22 @@ libretime_storage_dir: /srv/libretime
 # > Analyzer
 ########################################################################################
 libretime_analyzer_managed: true
+libretime_analyzer_pip_extras: []
 
 # > Playout
 ########################################################################################
 libretime_playout_managed: true
+libretime_playout_pip_extras: []
 
 # > Worker
 ########################################################################################
 libretime_worker_managed: true
+libretime_worker_pip_extras: []
 
 # > API
 ########################################################################################
 libretime_api_managed: true
+libretime_api_pip_extras: []
 
 # > Legacy
 ########################################################################################

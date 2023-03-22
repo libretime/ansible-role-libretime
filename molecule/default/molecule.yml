@@ -25,6 +25,7 @@ provisioner:
       instance1:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9001
+        libretime_playout_pip_extras: [sentry]
       instance2:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9002
