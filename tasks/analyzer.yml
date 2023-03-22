@@ -6,7 +6,9 @@
 
 - name: Install analyzer python package # noqa no-handler
   ansible.builtin.pip:
-    name: "file://{{ libretime_checkout_dest }}/analyzer"
+    name: >
+      libretime-analyzer
+      @ file://{{ libretime_checkout_dest }}/analyzer
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"
   notify: Restart libretime

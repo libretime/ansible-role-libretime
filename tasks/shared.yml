@@ -1,7 +1,9 @@
 ---
 - name: Install shared python package # noqa no-handler
   ansible.builtin.pip:
-    name: "file://{{ libretime_checkout_dest }}/shared"
+    name: >
+      libretime-shared
+      @ file://{{ libretime_checkout_dest }}/shared
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"
   notify: Restart libretime
