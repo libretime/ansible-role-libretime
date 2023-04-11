@@ -17,6 +17,10 @@ ProtectKernelTunables=true
 ProtectProc=invisible
 ProtectSystem=full
 
+{% if libretime_venv is defined %}
+Environment=PATH={{ libretime_venv }}/bin:/usr/local/bin:/usr/bin:/bin
+{% endif %}
+
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/analyzer.log
 WorkingDirectory={{ libretime_home }}/analyzer
