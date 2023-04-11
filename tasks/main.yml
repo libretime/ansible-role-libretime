@@ -109,6 +109,7 @@
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv | default(omit) }}"
     virtualenv_command: python3 -m venv
+    virtualenv_site_packages: true
 
 - name: Setup shared
   ansible.builtin.import_tasks: shared.yml

@@ -23,7 +23,7 @@ Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
 
 Type=notify
 KillMode=mixed
-ExecStart=/usr/bin/gunicorn \
+ExecStart={{ libretime_venv | default('/usr') }}/bin/python3 -m gunicorn \
         --workers 4 \
         --worker-class uvicorn.workers.UvicornWorker \
         --log-file - \
