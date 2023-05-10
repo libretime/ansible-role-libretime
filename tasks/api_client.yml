@@ -5,6 +5,6 @@
       libretime-api-client
       @ file://{{ libretime_checkout_dest }}/api-client
     state: latest # noqa package-latest
-    virtualenv: "{{ libretime_venv | default(omit) }}"
+    virtualenv: "{{ libretime_venv_dir }}"
   notify: Restart libretime
   when: libretime_checkout is changed

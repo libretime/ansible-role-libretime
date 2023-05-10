@@ -19,9 +19,7 @@ libretime_log_dir: /var/log/libretime
 libretime_config_dir: /etc/libretime
 libretime_config_filepath: "{{ libretime_config_dir }}/config.yml"
 libretime_storage_dir: /srv/libretime
-
-# Experimental !
-# libretime_venv:
+libretime_venv_dir: /opt/libretime
 
 # > Analyzer
 ########################################################################################

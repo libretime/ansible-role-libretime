@@ -107,7 +107,7 @@
   ansible.builtin.pip:
     name: [pip, setuptools, wheel]
     state: latest # noqa package-latest
-    virtualenv: "{{ libretime_venv | default(omit) }}"
+    virtualenv: "{{ libretime_venv_dir }}"
     virtualenv_command: python3 -m venv
     virtualenv_site_packages: true
 
@@ -155,7 +155,7 @@
 - name: Run database migration
   become: true
   become_user: "{{ libretime_user }}"
-  ansible.builtin.command: "{{ libretime_venv | default('/usr/local') }}/bin/libretime-api migrate"
+  ansible.builtin.command: "{{ libretime_venv_dir }}/bin/libretime-api migrate"
   register: migration
   changed_when: >
     "No migrations to apply." not in migration.stdout

@@ -32,7 +32,6 @@ provisioner:
       instance2:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9002
-        libretime_venv: /opt/libretime
 
 verifier:
   name: testinfra
