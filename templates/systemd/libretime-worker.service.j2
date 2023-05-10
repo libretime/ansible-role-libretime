@@ -17,15 +17,12 @@ ProtectKernelTunables=true
 ProtectProc=invisible
 ProtectSystem=full
 
-{% if libretime_venv is defined %}
-Environment=PATH={{ libretime_venv }}/bin:/usr/local/bin:/usr/bin:/bin
-{% endif %}
-
+Environment=PATH={{ libretime_venv_dir }}/bin:/usr/local/bin:/usr/bin:/bin
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/worker.log
 WorkingDirectory={{ libretime_home }}/worker
 
-ExecStart=/usr/bin/sh -c '{{ libretime_venv | default('/usr/local') }}/bin/celery worker \
+ExecStart=/usr/bin/sh -c '{{ libretime_venv_dir }}/bin/celery worker \
     --app=libretime_worker.tasks:worker \
     --config=libretime_worker.config \
     --time-limit=1800 \

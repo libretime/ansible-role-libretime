@@ -5,6 +5,6 @@
       libretime-shared
       @ file://{{ libretime_checkout_dest }}/shared
     state: latest # noqa package-latest
-    virtualenv: "{{ libretime_venv | default(omit) }}"
+    virtualenv: "{{ libretime_venv_dir }}"
   notify: Restart libretime
   when: libretime_checkout is changed

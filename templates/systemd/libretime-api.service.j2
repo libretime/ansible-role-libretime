@@ -18,16 +18,13 @@ ProtectKernelTunables=true
 ProtectProc=invisible
 ProtectSystem=full
 
-{% if libretime_venv is defined %}
-Environment=PATH={{ libretime_venv }}/bin:/usr/local/bin:/usr/bin:/bin
-{% endif %}
-
+Environment=PATH={{ libretime_venv_dir }}/bin:/usr/local/bin:/usr/bin:/bin
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
 
 Type=notify
 KillMode=mixed
-ExecStart={{ libretime_venv | default('/usr') }}/bin/python3 -m gunicorn \
+ExecStart={{ libretime_venv_dir }}/bin/python3 -m gunicorn \
         --workers 4 \
         --worker-class uvicorn.workers.UvicornWorker \
         --log-file - \

@@ -10,9 +10,18 @@
       libretime-api[{{ (['prod'] + libretime_api_pip_extras) | join(',') }}]
       @ file://{{ libretime_checkout_dest }}/api
     state: latest # noqa package-latest
-    virtualenv: "{{ libretime_venv | default(omit) }}"
+    virtualenv: "{{ libretime_venv_dir }}"
   notify: Restart libretime
   when: libretime_checkout is changed
+
+- name: Create api entrypoint symlinks
+  ansible.builtin.file:
+    src: "{{ libretime_venv_dir }}/bin/libretime-api"
+    dest: /usr/local/bin/libretime-api
+    owner: root
+    group: root
+    state: link
+    force: true
 
 - name: Setup api systemd socket
   ansible.builtin.import_tasks: _systemd.yml
