@@ -11,7 +11,7 @@ libretime_listen_port: 80
 libretime_max_upload_size: 512M
 
 libretime_checkout_url: https://github.com/libretime/libretime
-libretime_checkout_version: main
+libretime_checkout_version: stable
 libretime_checkout_dest: /usr/src/libretime
 
 libretime_home: /var/lib/libretime
