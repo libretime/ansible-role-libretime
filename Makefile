@@ -9,6 +9,7 @@ $(VENV):
 	$(VENV)/bin/pip install --upgrade pip wheel
 	$(VENV)/bin/pip install -r requirements.txt
 	$(VENV)/bin/ansible-galaxy install -r requirements.yml
+	$(VENV)/bin/ansible-galaxy install -r molecule/requirements.yml
 
 lint: $(VENV)
 	$(VENV)/bin/ansible-lint --force-color
