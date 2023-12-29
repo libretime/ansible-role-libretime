@@ -25,6 +25,8 @@ provisioner:
       instance1:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9001
+        libretime_api_key: hackme
+        libretime_secret_key: hackme
         libretime_playout_pip_extras: [sentry]
         libretime_playout_systemd_override: |
           [Service]
@@ -32,6 +34,8 @@ provisioner:
       instance2:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9002
+        libretime_api_key: hackme
+        libretime_secret_key: hackme
 
 verifier:
   name: testinfra
