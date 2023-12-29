@@ -65,7 +65,6 @@ jobs:
           path: |
             ~/.ansible/collections
             ~/.ansible/roles
-            ~/.cache/ansible-compat
           key: ${{ runner.os }}-ansible-${{ hashFiles('**/requirements.yml') }}
 
       - run: make install
