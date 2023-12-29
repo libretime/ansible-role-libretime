@@ -14,6 +14,7 @@ See the `defaults/main.yml` file for details.
 
 - `libretime_public_url` defines the public url used to access Libretime. This variable **MUST** be updated.
 - `libretime_api_key` define the api key. This variable **MUST** be updated.
+- `libretime_secret_key` define the secret key. This variable **MUST** be updated.
 
 - `libretime_config_template` defines the path to your configuration template file. This variable **SHOULD** be updated. This is used to let you deploy your own configuration file, you can find an example in `templates/libretime/config.yml.j2`.
 
@@ -51,7 +52,8 @@ See the `requirements.yml` file for details.
     - role: libretime
       libretime_public_url: https://station.radio.org
       libretime_listen_port: 8080
-      libretime_api_key: a182_your_secret_key_c87f
+      libretime_api_key: a182_your_api_key_c87f
+      libretime_secret_key: 0fd9_your_secret_key_4521
       libretime_icecast_admin_password: 0fd9ba81394a91cd178514e3c6788052
       libretime_icecast_source_password: ee41c264d954b92fce44521e02663d89
       libretime_icecast_relay_password: 9702d35f24d77ce8cb2da75ab2298654
