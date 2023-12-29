@@ -67,8 +67,6 @@ jobs:
             ~/.ansible/roles
             ~/.cache/ansible-compat
           key: ${{ runner.os }}-ansible-${{ hashFiles('**/requirements.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-ansible-
 
       - run: make install
       - run: make test
