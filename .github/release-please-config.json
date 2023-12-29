@@ -3,6 +3,7 @@
   "bootstrap-sha": "d74692a81dd94446e1e05446706fda003d29623e",
   "include-component-in-tag": false,
   "include-v-in-tag": false,
+  "draft-pull-request": true,
   "packages": {
     ".": {
       "release-type": "simple",

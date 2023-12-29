@@ -38,8 +38,10 @@ jobs:
       - run: make lint
 
   test:
+    if: >
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
