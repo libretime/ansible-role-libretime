@@ -49,6 +49,10 @@ jobs:
           - ubuntu:focal
           - debian:bullseye
 
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.image }}
+      cancel-in-progress: true
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
