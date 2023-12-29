@@ -7,7 +7,7 @@ libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"
 libretime_api_key: "{{ libretime_legacy_api_key | default('hackme') }}"
 
 libretime_user: libretime
-libretime_listen_port: 80
+libretime_listen_port: 8080
 libretime_max_upload_size: 512M
 
 libretime_checkout_url: https://github.com/libretime/libretime
