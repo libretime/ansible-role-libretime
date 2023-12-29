@@ -26,7 +26,7 @@ Type=notify
 KillMode=mixed
 ExecStart={{ libretime_venv_dir }}/bin/gunicorn \
         --workers 4 \
-        --worker-class uvicorn.workers.UvicornWorker \
+        --worker-class libretime_api.gunicorn.Worker \
         --log-file - \
         --bind unix:/run/libretime-api.sock \
         libretime_api.asgi
