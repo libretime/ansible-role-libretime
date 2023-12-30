@@ -66,7 +66,9 @@ jobs:
           echo "deb [arch=amd64 signed-by=$REPO_KEY_FILE] $REPO_URL /" | sudo tee "$REPO_FILE"
 
           sudo apt-get -q update
-          sudo apt-get -q install -y podman
+          sudo apt-get -q install -y podman fuse-overlayfs
+
+          podman info
         env:
           DEBIAN_FRONTEND: noninteractive
 
