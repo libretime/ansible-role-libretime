@@ -54,6 +54,22 @@ jobs:
       cancel-in-progress: true
 
     steps:
+      - name: Install podman
+        run: |
+          REPO_URL="http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/"
+          REPO_KEY_URL="http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/unstable/xUbuntu_22.04/Release.key"
+          REPO_KEY_FILE="/etc/apt/keyrings/podman.gpg"
+          REPO_FILE="/etc/apt/sources.list.d/podman.list"
+
+          sudo mkdir -p "$(dirname "$REPO_KEY_FILE")"
+          curl -fsSL "$REPO_KEY_URL" | sudo gpg --dearmor -o "$REPO_KEY_FILE"
+          echo "deb [arch=amd64 signed-by=$REPO_KEY_FILE] $REPO_URL /" | sudo tee "$REPO_FILE"
+
+          sudo apt-get -q update
+          sudo apt-get -q install -y podman
+        env:
+          DEBIAN_FRONTEND: noninteractive
+
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
