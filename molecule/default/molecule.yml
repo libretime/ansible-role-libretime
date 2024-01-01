@@ -20,6 +20,7 @@ provisioner:
   env:
     ANSIBLE_FORCE_COLOR: true
     ANSIBLE_PIPELINING: true
+    ANSIBLE_VERBOSITY: 1
   inventory:
     host_vars:
       instance1:
