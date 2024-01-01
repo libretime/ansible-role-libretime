@@ -45,13 +45,7 @@
           --install-dir=/usr/local/bin
           --filename=composer
 
-- name: Clean legacy web root directory # noqa no-handler
-  ansible.builtin.file:
-    path: "{{ libretime_legacy_web_root }}"
-    state: absent
-  when: libretime_checkout is changed
-
-- name: Create legacy web root directory # noqa command-instead-of-module
+- name: Create legacy web root directory
   ansible.builtin.file:
     path: "{{ libretime_legacy_web_root }}"
     owner: "{{ libretime_user }}"
@@ -59,30 +53,55 @@
     state: directory
     mode: "0755"
 
-- name: Copy legacy files in the web root
-  ansible.builtin.copy:
-    src: "{{ libretime_checkout_dest }}/legacy/"
-    dest: "{{ libretime_legacy_web_root }}"
-    owner: "{{ libretime_user }}"
-    group: "{{ libretime_user }}"
-    mode: preserve
-    remote_src: true
+- name: Deploy legacy files # noqa no-handler
+  when: libretime_checkout is changed
+  block:
+    - name: Create temporary directory
+      ansible.builtin.tempfile:
+        state: directory
+        prefix: legacy.
+        path: "{{ libretime_legacy_web_root | dirname }}"
+      register: _tmp_legacy_web_root
 
-- name: Build legacy
-  become: true
-  become_user: "{{ libretime_user }}"
-  ansible.builtin.command: make -C {{ libretime_legacy_web_root }} build
-  args:
-    creates: "{{ libretime_legacy_web_root }}/vendor"
+    - name: Copy legacy files to temporary directory
+      ansible.builtin.copy:
+        src: "{{ libretime_checkout_dest }}/{{ item }}"
+        dest: "{{ _tmp_legacy_web_root.path }}"
+        owner: "{{ libretime_user }}"
+        group: "{{ libretime_user }}"
+        mode: preserve
+        remote_src: true
+      loop:
+        - legacy/
+        - VERSION
 
-- name: Copy VERSION file in the web root
-  ansible.builtin.copy:
-    src: "{{ libretime_checkout_dest }}/VERSION"
-    dest: "{{ libretime_legacy_web_root }}"
-    owner: "{{ libretime_user }}"
-    group: "{{ libretime_user }}"
-    mode: preserve
-    remote_src: true
+    - name: Build legacy
+      become: true
+      become_user: "{{ libretime_user }}"
+      ansible.builtin.command: make build
+      args:
+        chdir: "{{ _tmp_legacy_web_root.path }}"
+        creates: "{{ _tmp_legacy_web_root.path }}/vendor"
+
+    - name: Clean legacy web root directory
+      ansible.builtin.file:
+        path: "{{ libretime_legacy_web_root }}"
+        state: absent
+
+    - name: Copy temporary directory to legacy web root directory
+      ansible.builtin.copy:
+        src: "{{ _tmp_legacy_web_root.path }}"
+        dest: "{{ libretime_legacy_web_root }}"
+        owner: "{{ libretime_user }}"
+        group: "{{ libretime_user }}"
+        mode: preserve
+        remote_src: true
+  always:
+    - name: Clean temporary directory
+      when: _tmp_legacy_web_root is defined
+      ansible.builtin.file:
+        path: "{{ _tmp_legacy_web_root.path }}"
+        state: absent
 
 - name: Deploy legacy logrotate config
   ansible.builtin.template:
