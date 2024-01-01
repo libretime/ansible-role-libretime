@@ -20,7 +20,8 @@ provisioner:
   env:
     ANSIBLE_FORCE_COLOR: true
     ANSIBLE_PIPELINING: true
-    ANSIBLE_VERBOSITY: 1
+    # ANSIBLE_VERBOSITY: 1
+    # ANSIBLE_STDOUT_CALLBACK: community.general.yaml
   inventory:
     host_vars:
       instance1:
