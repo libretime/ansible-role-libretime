@@ -178,6 +178,9 @@ stream:
       - <<: *default_icecast_output
         enabled: false
         mount: extra
+        audio:
+          format: ogg
+          bitrate: 256
 
       - # Whether the output is enabled.
         # > default is false

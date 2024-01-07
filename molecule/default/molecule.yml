@@ -25,6 +25,7 @@ provisioner:
   inventory:
     host_vars:
       instance1:
+        libretime_checkout_version: main
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9001
         libretime_api_key: hackme
@@ -35,6 +36,7 @@ provisioner:
           Environment=LIBRETIME_LOG_LEVEL=debug
         libretime_systemd_hardening: false
       instance2:
+        libretime_checkout_version: main
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9002
         libretime_api_key: hackme
