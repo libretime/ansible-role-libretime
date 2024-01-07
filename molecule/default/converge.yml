@@ -26,6 +26,12 @@
         name: [git, make, acl] # Is acl only required while testing ?
         update_cache: true
 
+    - name: Link /usr/bin/sh to /bin/bash
+      ansible.builtin.file:
+        src: /bin/bash
+        dest: /usr/bin/sh
+        state: link
+
     - name: Include libretime
       ansible.builtin.include_role:
         name: ansible-role-libretime
