@@ -1,6 +1,7 @@
 ---
 libretime_allow_restart: true
 libretime_migrate: true
+libretime_systemd_hardening: true
 
 # libretime_config_template:
 libretime_public_url: "http://localhost:{{ libretime_listen_port }}/"

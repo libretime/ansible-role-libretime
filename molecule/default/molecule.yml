@@ -33,11 +33,13 @@ provisioner:
         libretime_playout_systemd_override: |
           [Service]
           Environment=LIBRETIME_LOG_LEVEL=debug
+        libretime_systemd_hardening: false
       instance2:
         libretime_public_url: http://localhost:{{ libretime_listen_port }}/
         libretime_listen_port: 9002
         libretime_api_key: hackme
         libretime_secret_key: hackme
+        libretime_systemd_hardening: false
 
 verifier:
   name: testinfra

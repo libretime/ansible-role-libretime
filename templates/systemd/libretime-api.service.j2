@@ -4,6 +4,7 @@ Requires=libretime-api.socket
 PartOf=libretime.target
 
 [Service]
+{%- if libretime_systemd_hardening %}
 NoNewPrivileges=true
 CapabilityBoundingSet=
 PrivateDevices=true
@@ -17,6 +18,7 @@ ProtectKernelModules=true
 ProtectKernelTunables=true
 ProtectProc=invisible
 ProtectSystem=full
+{%- endif %}
 
 Environment=PATH={{ libretime_venv_dir }}/bin:/usr/local/bin:/usr/bin:/bin
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
