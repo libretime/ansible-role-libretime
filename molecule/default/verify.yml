@@ -1,0 +1,56 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: true
+  become: true
+
+  vars:
+    services:
+      - libretime-analyzer.service
+      - libretime-api.service
+      - libretime-liquidsoap.service
+      - libretime-playout.service
+      - libretime-worker.service
+
+  tasks:
+    - name: Check that server is listening
+      ansible.builtin.wait_for:
+        port: "{{ libretime_listen_port }}"
+        timeout: 2
+
+    - name: Register /etc/libretime/config.yml
+      ansible.builtin.stat:
+        path: /etc/libretime/config.yml
+      register: result
+
+    - name: Check /etc/libretime/config.yml
+      ansible.builtin.assert:
+        that:
+          - result.stat.exists is true
+          - result.stat.pw_name == 'libretime'
+          - result.stat.gr_name == 'libretime'
+          - result.stat.mode == '0640'
+
+    - name: Register /usr/share/libretime/legacy/application/preload.php
+      ansible.builtin.stat:
+        path: /usr/share/libretime/legacy/application/preload.php
+      register: result
+
+    - name: Check /usr/share/libretime/legacy/application/preload.php
+      ansible.builtin.assert:
+        that:
+          - result.stat.exists is true
+          - result.stat.pw_name == 'libretime'
+          - result.stat.gr_name == 'libretime'
+          - result.stat.mode == '0644'
+
+    - name: Gather services facts
+      ansible.builtin.service_facts:
+      register: result
+
+    - name: Ensure that services are started and enabled
+      ansible.builtin.assert:
+        that:
+          - result.ansible_facts.services[item].state == 'running'
+          - result.ansible_facts.services[item].status == 'enabled'
+      loop: "{{ services }}"

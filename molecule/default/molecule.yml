@@ -42,4 +42,4 @@ provisioner:
         libretime_systemd_hardening: false
 
 verifier:
-  name: testinfra
+  name: ansible
