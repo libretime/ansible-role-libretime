@@ -90,7 +90,7 @@
 
     - name: Copy temporary directory to legacy web root directory
       ansible.builtin.copy:
-        src: "{{ _tmp_legacy_web_root.path }}"
+        src: "{{ _tmp_legacy_web_root.path }}/"
         dest: "{{ libretime_legacy_web_root }}"
         owner: "{{ libretime_user }}"
         group: "{{ libretime_user }}"
