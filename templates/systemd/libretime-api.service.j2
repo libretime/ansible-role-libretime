@@ -20,6 +20,7 @@ ProtectProc=invisible
 ProtectSystem=full
 {%- endif %}
 
+Environment=PYTHONOPTIMIZE=2
 Environment=PATH={{ libretime_venv_dir }}/bin:/usr/local/bin:/usr/bin:/bin
 Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/api.log
