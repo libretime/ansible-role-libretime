@@ -4,7 +4,7 @@ Requires=libretime-api.socket
 PartOf=libretime.target
 
 [Service]
-{%- if libretime_systemd_hardening %}
+{% if libretime_systemd_hardening -%}
 NoNewPrivileges=true
 CapabilityBoundingSet=
 PrivateDevices=true

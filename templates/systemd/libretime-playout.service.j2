@@ -5,7 +5,7 @@ Wants=libretime-liquidsoap.service
 After=libretime-liquidsoap.service
 
 [Service]
-{%- if libretime_systemd_hardening %}
+{% if libretime_systemd_hardening -%}
 NoNewPrivileges=true
 CapabilityBoundingSet=
 PrivateDevices=true
