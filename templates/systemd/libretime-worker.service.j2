@@ -25,14 +25,7 @@ Environment=LIBRETIME_CONFIG_FILEPATH={{ libretime_config_filepath }}
 Environment=LIBRETIME_LOG_FILEPATH={{ libretime_log_dir }}/worker.log
 WorkingDirectory={{ libretime_home }}/worker
 
-ExecStart=/usr/bin/sh -c '{{ libretime_venv_dir }}/bin/celery worker \
-    --app=libretime_worker.tasks:worker \
-    --config=libretime_worker.config \
-    --beat \
-    --time-limit=1800 \
-    --concurrency=1 \
-    --loglevel=INFO \
-    --logfile=$LIBRETIME_LOG_FILEPATH'
+ExecStart={{ libretime_venv_dir }}/bin/libretime-worker
 Restart=always
 
 User={{ libretime_user }}
