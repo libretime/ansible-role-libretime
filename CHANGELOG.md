@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/libretime/ansible-role-libretime/compare/2.0.0...2.1.0) (2024-04-13)
+
+
+### Features
+
+* enable celery beat for period tasks ([#84](https://github.com/libretime/ansible-role-libretime/issues/84)) ([df9fa91](https://github.com/libretime/ansible-role-libretime/commit/df9fa911dc9244160da8af9d8fe87e376496d7f0))
+
 ## [2.0.0](https://github.com/libretime/ansible-role-libretime/compare/1.0.0...2.0.0) (2024-04-13)
 
 
