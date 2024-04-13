@@ -3,7 +3,7 @@ ansible-core>=2.16,<2.17
 ansible-lint>=6.0.0,<7.0
 
 ## Dev
-black>=24.1.1,<24.2
+black>=24.4,<24.5
 molecule>=24,<24.3
 molecule-plugins[podman]>=23.0.0,<24.0
 pylint>=3,<3.2
