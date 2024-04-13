@@ -28,6 +28,7 @@ WorkingDirectory={{ libretime_home }}/worker
 ExecStart=/usr/bin/sh -c '{{ libretime_venv_dir }}/bin/celery worker \
     --app=libretime_worker.tasks:worker \
     --config=libretime_worker.config \
+    --beat \
     --time-limit=1800 \
     --concurrency=1 \
     --loglevel=INFO \
