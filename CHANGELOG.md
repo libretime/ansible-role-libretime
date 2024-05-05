@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/libretime/ansible-role-libretime/compare/2.1.0...2.2.0) (2024-04-13)
+
+
+### Features
+
+* use new libretime-worker entrypoint ([#86](https://github.com/libretime/ansible-role-libretime/issues/86)) ([3902a6c](https://github.com/libretime/ansible-role-libretime/commit/3902a6cadd8fb15be5e64b4ff6609d0c87db6864))
+
 ## [2.1.0](https://github.com/libretime/ansible-role-libretime/compare/2.0.0...2.1.0) (2024-04-13)
 
 
