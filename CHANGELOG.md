@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/libretime/ansible-role-libretime/compare/2.2.1...2.2.2) (2024-06-22)
+
+
+### Bug Fixes
+
+* pin pip version to &lt;24.1 to allow installing pytz (celery) ([#95](https://github.com/libretime/ansible-role-libretime/issues/95)) ([12527d9](https://github.com/libretime/ansible-role-libretime/commit/12527d94f5f0b25eecefa63bab7cbba1f5a8e064))
+
 ## [2.2.1](https://github.com/libretime/ansible-role-libretime/compare/2.2.0...2.2.1) (2024-06-22)
 
 
