@@ -105,7 +105,7 @@
 
 - name: Setup python3 environment
   ansible.builtin.pip:
-    name: [pip<21.4, setuptools, wheel]
+    name: [pip<24.1, setuptools, wheel]
     state: latest # noqa package-latest
     virtualenv: "{{ libretime_venv_dir }}"
     virtualenv_command: python3 -m venv
