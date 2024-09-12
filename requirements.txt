@@ -1,6 +1,6 @@
 ## Ansible
 ansible-core>=2.17,<2.18
-ansible-lint>=24.6.1,<24.7
+ansible-lint>=24.9,<24.10
 
 ## Dev
 black>=24.8,<24.9
