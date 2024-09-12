@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.3](https://github.com/libretime/ansible-role-libretime/compare/2.2.2...2.2.3) (2024-09-12)
+
+
+### Bug Fixes
+
+* **deps:** update dependency molecule to &gt;=24,&lt;24.10 ([#98](https://github.com/libretime/ansible-role-libretime/issues/98)) ([c9528ee](https://github.com/libretime/ansible-role-libretime/commit/c9528eeef4e2d89e699e580a7c216f4496c09842))
+
 ## [2.2.2](https://github.com/libretime/ansible-role-libretime/compare/2.2.1...2.2.2) (2024-06-22)
 
 
