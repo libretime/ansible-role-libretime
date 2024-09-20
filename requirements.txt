@@ -6,4 +6,4 @@ ansible-lint>=24.9,<24.10
 black>=24.8,<24.9
 molecule>=24,<24.10
 molecule-plugins[podman]>=23.0.0,<24.0
-pylint>=3,<3.3
+pylint>=3,<3.4
