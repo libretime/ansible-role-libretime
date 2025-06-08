@@ -1,6 +1,6 @@
 ---
 collections:
   - name: containers.podman # https://github.com/containers/ansible-podman-collections
-    version: 1.11.0
+    version: 1.16.4
   - name: ansible.posix # https://github.com/ansible-collections/ansible.posix
-    version: 1.5.2
+    version: 2.0.0
