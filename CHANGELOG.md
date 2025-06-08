@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.3.0](https://github.com/libretime/ansible-role-libretime/compare/2.2.2...2.3.0) (2025-06-08)
+
+
+### Features
+
+* add legacy fastcgi cache ([#111](https://github.com/libretime/ansible-role-libretime/issues/111)) ([9da2bb3](https://github.com/libretime/ansible-role-libretime/commit/9da2bb36b8feb920c3a5e036a2b6d914f414335d))
+
+
+### Bug Fixes
+
+* **deps:** update dependency molecule to &gt;=24,&lt;24.10 ([#98](https://github.com/libretime/ansible-role-libretime/issues/98)) ([c9528ee](https://github.com/libretime/ansible-role-libretime/commit/c9528eeef4e2d89e699e580a7c216f4496c09842))
+* update collections requirements ([6ffb5af](https://github.com/libretime/ansible-role-libretime/commit/6ffb5af343f966cb83965cf9ab354576c49e2607))
+
 ## [2.2.2](https://github.com/libretime/ansible-role-libretime/compare/2.2.1...2.2.2) (2024-06-22)
 
 
