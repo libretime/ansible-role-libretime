@@ -51,6 +51,7 @@ libretime_api_systemd_override:
 ########################################################################################
 libretime_legacy_managed: true
 libretime_legacy_web_root: /usr/share/libretime/legacy
+libretime_legacy_cache_paths: []
 
 # > Postgresql
 ########################################################################################
