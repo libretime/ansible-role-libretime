@@ -34,4 +34,4 @@
 
     - name: Include libretime
       ansible.builtin.include_role:
-        name: ansible-role-libretime
+        name: libretime.libretime
