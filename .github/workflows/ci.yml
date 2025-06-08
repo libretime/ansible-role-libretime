@@ -46,7 +46,9 @@ jobs:
       fail-fast: false
       matrix:
         image:
-          - ubuntu:focal
+          # TODO: re-enable once ansible-core 2.19 has been released
+          # https://github.com/ansible/ansible/issues/84954
+          # - ubuntu:focal
           - debian:bullseye
 
     concurrency:
