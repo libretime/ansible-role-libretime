@@ -30,7 +30,7 @@ repos:
         exclude: ^(CHANGELOG.md|.github/release-please-manifest.json)$
 
   - repo: https://github.com/codespell-project/codespell
-    rev: v2.4.1
+    rev: v2.4.3
     hooks:
       - id: codespell
         args: [--ignore-words=.codespellignore]
