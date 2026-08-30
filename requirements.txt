@@ -1,6 +1,6 @@
 ## Ansible
 ansible-core>=2.18,<2.19
-ansible-lint>=25.5,<25.6
+ansible-lint>=25.12,<25.13
 
 ## Dev
 molecule>=25,<25.6
